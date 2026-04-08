@@ -15,7 +15,6 @@ export function RoleStep({ onBack, onSelect }: Props) {
       <div className="mt-6 grid gap-4 md:grid-cols-3">
         <button onClick={() => onSelect("speaker")}>Speaker</button>
         <button onClick={() => onSelect("exhibitor")}>Exhibitor</button>
-        <button onClick={() => onSelect("visitor")}>Visitor</button>
       </div>
     </section>
   );

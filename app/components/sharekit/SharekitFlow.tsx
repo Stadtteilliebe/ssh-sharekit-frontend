@@ -6,7 +6,7 @@ import { GeneralGalleryStep } from "@/app/components/sharekit/steps/GeneralGalle
 import { WorkspaceStep } from "@/app/components/sharekit/steps/WorkspaceStep";
 
 type Step = "entry" | "general-gallery" | "workspace";
-type Role = "speaker" | "visitor";
+type Role = "speaker" | "exhibitor";
 
 export function SharekitFlow() {
   const [step, setStep] = useState<Step>("entry");
@@ -16,6 +16,7 @@ export function SharekitFlow() {
     return (
       <EntryStep
         onStartWithRole={(nextRole) => {
+          setRole(nextRole);
           setStep("workspace");
         }}
         onSelectGeneralFlow={() => setStep("general-gallery")}

@@ -1,1 +1,1 @@
-export type Role = "speaker" | "exhibitor" | "visitor";
+export type Role = "speaker" | "exhibitor" ;

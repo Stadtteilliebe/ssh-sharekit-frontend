@@ -2,7 +2,7 @@
 
 import { SpeakerCustomizeStep } from "@/app/components/sharekit/steps/SpeakerCustomizeStep";
 
-type Role = "speaker" | "visitor";
+type Role = "speaker" | "exhibitor";
 
 type WorkspaceStepProps = {
   role: Role;
@@ -47,9 +47,9 @@ export function WorkspaceStep({
           </button>
 
           <button
-            onClick={() => onRoleChange("visitor")}
+            onClick={() => onRoleChange("exhibitor")}
             className={`rounded-xl px-4 py-2 text-sm font-medium transition ${
-              role === "visitor"
+              role === "exhibitor"
                 ? "bg-black text-white"
                 : "text-neutral-700"
             }`}
@@ -61,7 +61,7 @@ export function WorkspaceStep({
 
       {role === "speaker" && <SpeakerCustomizeStep />}
 
-      {role === "visitor" && (
+      {role === "exhibitor" && (
         <div className="rounded-2xl bg-neutral-50 p-8">
           <h2 className="text-xl font-semibold">Visitor</h2>
           <p className="mt-2 text-neutral-600">

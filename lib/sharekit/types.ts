@@ -1,0 +1,1 @@
+export type Role = "speaker" | "exhibitor" | "visitor";

@@ -17,7 +17,7 @@ export function GeneralGalleryStep({
   }, [activeFormat]);
 
   return (
-    <section className="rounded-3xl bg-white p-8 shadow-sm">
+    <section className="">
       <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
         <button
           onClick={onBack}
@@ -52,7 +52,7 @@ export function GeneralGalleryStep({
       </div>
 
       <div className="mt-6">
-        <h1 className="text-2xl font-semibold">Allgemeine Bilder</h1>
+        <h1 className="text-2xl md:text-5xl">Allgemeine Bilder</h1>
         <p className="mt-2 text-sm text-neutral-500">
           Standardmäßig werden Querformate angezeigt. Du kannst oben zwischen
           Quer und Hoch wechseln.
@@ -63,10 +63,10 @@ export function GeneralGalleryStep({
         {filteredImages.map((img) => (
           <article
             key={img.id}
-            className="overflow-hidden rounded-2xl border border-neutral-200 bg-white"
+            className="overflow-hidden rounded-[8px] border border-neutral-200 bg-white"
           >
             <div
-              className={`flex items-center justify-center bg-neutral-100 p-4 ${
+              className={`flex items-center justify-center bg-neutral-100 ${
                 img.format === "landscape" ? "aspect-[16/9]" : "aspect-[4/5]"
               }`}
             >
@@ -81,6 +81,9 @@ export function GeneralGalleryStep({
               <div>
                 <p className="text-sm font-medium text-neutral-900">
                   {img.format === "landscape" ? "Querformat" : "Hochformat"}
+                </p>
+                <p>
+                  {img.dimension}
                 </p>
               </div>
 

@@ -16,7 +16,6 @@ export function SharekitFlow() {
     return (
       <EntryStep
         onStartWithRole={(nextRole) => {
-          setRole(nextRole);
           setStep("workspace");
         }}
         onSelectGeneralFlow={() => setStep("general-gallery")}
@@ -25,7 +24,7 @@ export function SharekitFlow() {
   }
 
   return (
-    <main className="min-h-screen bg-[#f3f3f1] p-4 text-neutral-900 md:p-6">
+    <main className="min-h-screen p-4 text-neutral-900 md:p-6">
       <div className="mx-auto max-w-7xl">
         {step === "general-gallery" && (
           <GeneralGalleryStep onBack={() => setStep("entry")} />

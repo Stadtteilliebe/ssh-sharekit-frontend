@@ -1,9 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { EntryStep } from "@/components/sharekit/steps/EntryStep";
-import { GeneralGalleryStep } from "@/components/sharekit/steps/GeneralGalleryStep";
-import { WorkspaceStep } from "@/components/sharekit/steps/WorkspaceStep";
+import { EntryStep } from "@/app/components/sharekit/steps/EntryStep";
+import { GeneralGalleryStep } from "@/app/components/sharekit/steps/GeneralGalleryStep";
+import { WorkspaceStep } from "@/app/components/sharekit/steps/WorkspaceStep";
 
 type Step = "entry" | "general-gallery" | "workspace";
 type Role = "speaker" | "visitor";

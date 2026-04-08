@@ -1,4 +1,4 @@
-import { SharekitFlow } from "@/components/sharekit/SharekitFlow";
+import { SharekitFlow } from "@/app/components/sharekit/SharekitFlow";
 
 export default function Page() {
   return <SharekitFlow />;

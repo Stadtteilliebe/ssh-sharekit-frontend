@@ -1,6 +1,6 @@
 "use client";
 
-import { SpeakerCustomizeStep } from "@/components/sharekit/steps/SpeakerCustomizeStep";
+import { SpeakerCustomizeStep } from "@/app/components/sharekit/steps/SpeakerCustomizeStep";
 
 type Role = "speaker" | "visitor";
 

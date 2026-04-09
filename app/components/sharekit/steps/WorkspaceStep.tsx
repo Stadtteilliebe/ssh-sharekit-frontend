@@ -1,19 +1,24 @@
 "use client";
 
 import { SpeakerCustomizeStep } from "@/app/components/sharekit/steps/SpeakerCustomizeStep";
+import type { Motif } from "@/lib/sharekit/motifs";
 
 type Role = "speaker" | "exhibitor";
 
 type WorkspaceStepProps = {
   role: Role;
+  motif: Motif | null;
   onRoleChange: (role: Role) => void;
   onBack: () => void;
+  onChangeMotif: () => void;
 };
 
 export function WorkspaceStep({
   role,
+  motif,
   onRoleChange,
   onBack,
+  onChangeMotif,
 }: WorkspaceStepProps) {
   return (
     <section className="rounded-[24px] border border-black/5 bg-white p-4 shadow-sm md:p-6">
@@ -54,18 +59,20 @@ export function WorkspaceStep({
                 : "text-neutral-700"
             }`}
           >
-            Visitor
+            Exhibitor
           </button>
         </div>
       </div>
 
-      {role === "speaker" && <SpeakerCustomizeStep />}
+      {role === "speaker" && (
+        <SpeakerCustomizeStep motif={motif} onChangeMotif={onChangeMotif} />
+      )}
 
       {role === "exhibitor" && (
         <div className="rounded-2xl bg-neutral-50 p-8">
-          <h2 className="text-xl font-semibold">Visitor</h2>
+          <h2 className="text-xl font-semibold">Exhibitor</h2>
           <p className="mt-2 text-neutral-600">
-            Hier kann als Nächstes die Visitor-Variante eingebaut werden.
+            Hier kommt später die Exhibitor-Variante.
           </p>
         </div>
       )}

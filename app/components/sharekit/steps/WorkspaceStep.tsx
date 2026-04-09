@@ -21,7 +21,7 @@ export function WorkspaceStep({
   onChangeMotif,
 }: WorkspaceStepProps) {
   return (
-    <section className="rounded-[24px] border border-black/5 bg-white p-4 shadow-sm md:p-6">
+    <section className="bg-white">
       <div className="mb-6 flex flex-col gap-4 border-b border-neutral-200 pb-4 md:flex-row md:items-center md:justify-between">
         <div className="flex items-center gap-3">
           <button
@@ -32,17 +32,14 @@ export function WorkspaceStep({
           </button>
 
           <div>
-            <p className="text-xs uppercase tracking-wide text-neutral-500">
-              Sharekit
-            </p>
-            <h1 className="text-xl font-semibold">Asset erstellen</h1>
+            <h1 className="text-xl">Asset erstellen</h1>
           </div>
         </div>
 
         <div className="inline-flex w-fit rounded-2xl bg-neutral-100 p-1">
           <button
             onClick={() => onRoleChange("speaker")}
-            className={`rounded-xl px-4 py-2 text-sm font-medium transition ${
+            className={`rounded-xl px-4 py-2 text-sm transition ${
               role === "speaker"
                 ? "bg-black text-white"
                 : "text-neutral-700"
@@ -53,7 +50,7 @@ export function WorkspaceStep({
 
           <button
             onClick={() => onRoleChange("exhibitor")}
-            className={`rounded-xl px-4 py-2 text-sm font-medium transition ${
+            className={`rounded-xl px-4 py-2 text-sm transition ${
               role === "exhibitor"
                 ? "bg-black text-white"
                 : "text-neutral-700"

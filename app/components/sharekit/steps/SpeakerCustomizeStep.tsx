@@ -94,7 +94,7 @@ export function SpeakerCustomizeStep({
 
   return (
     <div className="grid gap-6 lg:grid-cols-[360px_1fr]">
-      <div className="rounded-2xl bg-neutral-50 p-5">
+      <div>
         <div className="mb-4 flex items-start justify-between gap-4">
           <div>
             <h2 className="text-xl font-semibold">{motif.title}</h2>
@@ -169,9 +169,9 @@ export function SpeakerCustomizeStep({
         </button>
       </div>
 
-      <div className="rounded-2xl bg-neutral-50 p-5">
+      <div className="bg-neutral-100 p-10">
         <div
-          className={`overflow-hidden rounded-2xl bg-white ${formatConfig.previewClassName}`}
+          className={`overflow-hidden bg-white ${formatConfig.previewClassName}`}
         >
           <canvas
             ref={canvasRef}
@@ -279,12 +279,7 @@ function drawSpeakerName(
       ? Math.round(width * 0.05)
       : Math.round(width * 0.04);
 
-  ctx.font = `600 ${fontSize}px Arial`;
-
-  ctx.shadowColor = "rgba(0,0,0,0.35)";
-  ctx.shadowBlur = 16;
-  ctx.shadowOffsetX = 0;
-  ctx.shadowOffsetY = 2;
+  ctx.font = `400 ${fontSize}px Rubik`;
 
   const x = width / 2;
   const y = format === "portrait" ? height * 0.78 : height * 0.82;

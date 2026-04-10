@@ -43,7 +43,7 @@ export function DownloadButton({
       className={classNames(
         "inline-flex items-center justify-center",
         "h-10 w-10 md:h-11 md:w-11",
-        "rounded-full border",
+        "rounded-full border-[1.5px]",
         "transition",
         "cursor-pointer",
         "focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2",

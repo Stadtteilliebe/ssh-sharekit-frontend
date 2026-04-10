@@ -21,7 +21,7 @@ export function ShareButton({
         "inline-flex items-center justify-center",
         "h-10 md:h-11",
         "rounded-full",
-        "border",
+        "border-[1.5px]",
         "px-4 md:px-6",
         "text-[15px] md:text-base",
         "transition-all",

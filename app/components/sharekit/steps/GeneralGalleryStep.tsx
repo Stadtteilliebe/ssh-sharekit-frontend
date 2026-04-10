@@ -33,16 +33,17 @@ export function GeneralGalleryStep({
 
   return (
     <>
-      <section>
+      <section className="bg-white">
         <StickyStepNav
-          title="Allgemeine Bilder"
+          title="Allgemeine Assets"
           onBackAction={onBackAction}
         />
 
         <div className="flex flex-col px-5 md:px-20">
-          <h1 className="text-2xl font-semibold uppercase md:text-4xl">
+          <h1 className="text-2xl font-medium uppercase md:text-4xl">
             Allgemeine Bilder
           </h1>
+<div className="flex flex-row space-between">
 
             {filteredImages.length} Motive 
           <div className="inline-flex w-fit rounded-2xl bg-neutral-100 p-1">
@@ -52,10 +53,10 @@ export function GeneralGalleryStep({
               className={classNames(
                 "rounded-xl px-4 py-2 text-sm font-medium transition",
                 activeFormat === "landscape"
-                  ? "bg-black text-white"
-                  : "text-neutral-700"
+                ? "bg-black text-white"
+                : "text-neutral-700"
               )}
-            >
+              >
               Quer
             </button>
 
@@ -65,20 +66,21 @@ export function GeneralGalleryStep({
               className={classNames(
                 "rounded-xl px-4 py-2 text-sm font-medium transition",
                 activeFormat === "portrait"
-                  ? "bg-black text-white"
-                  : "text-neutral-700"
+                ? "bg-black text-white"
+                : "text-neutral-700"
               )}
-            >
+              >
               Hoch
             </button>
           </div>
+              </div>
 
           <div className="mt-8 grid grid-cols-12 gap-4">
             {filteredImages.map((img) => (
               <article
                 key={img.id}
                 className={classNames(
-                  "overflow-hidden rounded-[8px] border border-neutral-200 bg-white",
+                  "overflow-hidden rounded-[8px] border-[1.5px] border-[#B9AEF3] bg-white",
                   activeFormat === "landscape"
                     ? "col-span-12 md:col-span-6"
                     : "col-span-12 md:col-span-6 xl:col-span-4"

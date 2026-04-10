@@ -15,6 +15,22 @@ export const generalImages = [
     format: "landscape",
     alt: "General image 2",
   },
+    {
+    id: "5",
+    src: "/sharekit/general-1.png",
+    title: "",
+    dimension: "1.920 x 1080",
+    format: "landscape",
+    alt: "General image 1",
+  },
+  {
+    id: "6",
+    src: "/sharekit/general-2.png",
+    title: "",
+    dimension: "",
+    format: "landscape",
+    alt: "General image 2",
+  },
   {
     id: "3",
     src: "/sharekit/general-3.png",

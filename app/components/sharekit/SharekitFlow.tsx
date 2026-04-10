@@ -28,7 +28,7 @@ export function SharekitFlow() {
   }
 
   if (step === "general-gallery") {
-    return <GeneralGalleryStep onBack={() => setStep("entry")} />;
+    return <GeneralGalleryStep onBackAction={() => setStep("entry")} />
   }
 
   if (step === "motif-select") {

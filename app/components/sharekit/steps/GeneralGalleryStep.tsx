@@ -39,11 +39,11 @@ export function GeneralGalleryStep({
           onBackAction={onBackAction}
         />
 
-        <div className="flex flex-col px-5 md:px-20">
+        <div className="flex flex-col p-5 md:p-20">
           <h1 className="text-2xl font-medium uppercase md:text-4xl">
-            Allgemeine Bilder
+            Allgemeine Assets
           </h1>
-<div className="flex flex-row space-between">
+<div className="flex flex-row w-full items-center justify-between">
 
             {filteredImages.length} Motive 
           <div className="inline-flex w-fit rounded-2xl bg-neutral-100 p-1">
@@ -51,7 +51,7 @@ export function GeneralGalleryStep({
               type="button"
               onClick={() => setActiveFormat("landscape")}
               className={classNames(
-                "rounded-xl px-4 py-2 text-sm font-medium transition",
+                "rounded-xl px-4 py-2 text-sm transition",
                 activeFormat === "landscape"
                 ? "bg-black text-white"
                 : "text-neutral-700"
@@ -64,7 +64,7 @@ export function GeneralGalleryStep({
               type="button"
               onClick={() => setActiveFormat("portrait")}
               className={classNames(
-                "rounded-xl px-4 py-2 text-sm font-medium transition",
+                "rounded-xl px-4 py-2 text-sm transition",
                 activeFormat === "portrait"
                 ? "bg-black text-white"
                 : "text-neutral-700"
@@ -101,10 +101,10 @@ export function GeneralGalleryStep({
                   />
                 </div>
 
-                <div className="flex items-center justify-between gap-4 p-4">
+                <div className="flex items-center justify-between p-5">
                   <div>
-                    <p className="text-sm opacity-80">Größe</p>
-                    <p className="text-sm">{img.dimension}</p>
+                    <p className="text-[12px]">{img.title}</p>
+                    <p className="text-[12px]">{img.dimension}</p>
                   </div>
 
                   <div className="flex items-center gap-2">

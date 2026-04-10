@@ -65,19 +65,21 @@ export function ShareModal({ image, onClose }: ShareModalProps) {
 
   if (!image) return null;
 
+  const shareImage = image;
+
   function getOgShareUrl(imageId: string) {
     if (typeof window === "undefined") return `/share/general/${imageId}`;
     return `${window.location.origin}/share/general/${imageId}`;
   }
 
   async function handleCopyLink() {
-    const url = getOgShareUrl(image.id);
+    const url = getOgShareUrl(shareImage.id);
     await navigator.clipboard.writeText(url);
     setCopied(true);
   }
 
   function handleLinkedInShare() {
-    const url = getOgShareUrl(image.id);
+    const url = getOgShareUrl(shareImage.id);
     const linkedInUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(
       url
     )}`;
@@ -174,21 +176,27 @@ export function ShareModal({ image, onClose }: ShareModalProps) {
             <div
               className={classNames(
                 "flex items-center justify-center bg-neutral-100",
-                image.format === "landscape" ? "aspect-[16/9]" : "aspect-[4/5]"
+                shareImage.format === "landscape"
+                  ? "aspect-[16/9]"
+                  : "aspect-[4/5]"
               )}
             >
               <img
-                src={image.src}
-                alt={image.alt}
+                src={shareImage.src}
+                alt={shareImage.alt}
                 className="max-h-full max-w-full object-contain"
               />
             </div>
 
             <div className="p-4">
-              <p className="text-sm font-medium text-neutral-900">{image.alt}</p>
-              <p className="text-sm text-neutral-600">{image.dimension}</p>
+              <p className="text-sm font-medium text-neutral-900">
+                {shareImage.alt}
+              </p>
+              <p className="text-sm text-neutral-600">
+                {shareImage.dimension}
+              </p>
               <p className="mt-3 break-all text-xs text-neutral-500">
-                {getOgShareUrl(image.id)}
+                {getOgShareUrl(shareImage.id)}
               </p>
             </div>
           </div>

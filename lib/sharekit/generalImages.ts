@@ -1,50 +1,94 @@
+type ImageFormat = "landscape" | "portrait";
+
+type BaseImage = {
+  id: string;
+  previewSrc: string;
+  downloadSrc: string;
+  title?: string;
+  alt: string;
+  format: ImageFormat;
+};
+
+const FORMAT_CONFIG = {
+  landscape: {
+    width: 1920,
+    height: 1080,
+  },
+  portrait: {
+    width: 1080,
+    height: 1350,
+  },
+} as const;
+
+function createImage(image: BaseImage) {
+  const config = FORMAT_CONFIG[image.format];
+
+  return {
+    ...image,
+    width: config.width,
+    height: config.height,
+    dimension: `${config.width.toLocaleString("de-DE")} x ${config.height}`,
+  };
+}
+
 export const generalImages = [
-  {
+  // Landscape (4x)
+  createImage({
     id: "1",
-    src: "/sharekit/general-1.png",
-    title: "",
-    dimension: "1.920 x 1080",
+    previewSrc: "assets/general/hub-disrupt-sharekit-general-01-1920x1080-preview.jpg",
+    downloadSrc: "assets/general/hub-disrupt-sharekit-general-01-1920x1080.png",
     format: "landscape",
     alt: "General image 1",
-  },
-  {
+  }),
+  createImage({
     id: "2",
-    src: "/sharekit/general-2.png",
-    title: "",
-    dimension: "",
+    previewSrc: "assets/general/hub-disrupt-sharekit-general-02-1920x1080-preview.jpg",
+    downloadSrc: "assets/general/hub-disrupt-sharekit-general-02-1920x1080.png",
     format: "landscape",
     alt: "General image 2",
-  },
-    {
-    id: "5",
-    src: "/sharekit/general-1.png",
-    title: "",
-    dimension: "1.920 x 1080",
-    format: "landscape",
-    alt: "General image 1",
-  },
-  {
-    id: "6",
-    src: "/sharekit/general-2.png",
-    title: "",
-    dimension: "",
-    format: "landscape",
-    alt: "General image 2",
-  },
-  {
+  }),
+  createImage({
     id: "3",
-    src: "/sharekit/general-3.png",
-    title: "",
-    dimension: "",
-    format: "portrait",
+    previewSrc: "assets/general/hub-disrupt-sharekit-general-03-1920x1080-preview.jpg",
+    downloadSrc: "assets/general/hub-disrupt-sharekit-general-03-1920x1080.png",
+    format: "landscape",
     alt: "General image 3",
-  },
-  {
+  }),
+  createImage({
     id: "4",
-    src: "/sharekit/general-4.png",
-    title: "",
-    dimension: "",
-    format: "portrait",
+    previewSrc: "assets/general/hub-disrupt-sharekit-general-04-1920x1080-preview.jpg",
+    downloadSrc: "assets/general/hub-disrupt-sharekit-general-04-1920x1080.png",
+    format: "landscape",
     alt: "General image 4",
-  },
+  }),
+
+  // Portrait (4x)
+  createImage({
+    id: "5",
+    previewSrc: "assets/general/hub-disrupt-sharekit-general-01-1080x1350-preview.jpg",
+    downloadSrc: "assets/general/hub-disrupt-sharekit-general-01-1080x1350.png",
+    format: "portrait",
+    alt: "General image 5",
+  }),
+  createImage({
+    id: "6",
+    previewSrc: "assets/general/hub-disrupt-sharekit-general-02-1080x1350-preview.jpg",
+    downloadSrc: "assets/general/hub-disrupt-sharekit-general-02-1080x1350.png",
+    format: "portrait",
+    alt: "General image 6",
+  }),
+  createImage({
+    id: "7",
+    previewSrc: "assets/general/hub-disrupt-sharekit-general-03-1080x1350-preview.jpg",
+    downloadSrc: "assets/general/hub-disrupt-sharekit-general-03-1080x1350.png",
+    format: "portrait",
+    alt: "General image 7",
+  }),
+  createImage({
+    id: "8",
+    previewSrc: "assets/general/hub-disrupt-sharekit-general-04-1080x1350-preview.jpg",
+    downloadSrc: "assets/general/hub-disrupt-sharekit-general-04-1080x1350.png",
+    format: "portrait",
+    alt: "General image 8",
+  }),
 ] as const;

@@ -1,8 +1,6 @@
 "use client";
 
 import { classNames } from "@/lib/classNames";
-import { ShareIcon } from "@/public/icons/shareIcon";
-
 
 type ShareButtonProps = {
   onClick: () => void;
@@ -19,17 +17,24 @@ export function ShareButton({
     <button
       type="button"
       onClick={onClick}
-      aria-label={label}
-      title={label}
       className={classNames(
-        "inline-flex h-12 w-12 items-center justify-center rounded-full border border-neutral-300 bg-white text-neutral-900 transition",
-        "hover:border-neutral-500 hover:bg-neutral-50",
-        "focus:outline-none focus:ring-2 focus:ring-black/10",
-            "cursor-pointer",
+        "inline-flex items-center justify-center",
+        "h-10 md:h-11",
+        "rounded-full",
+        "border",
+        "px-4 md:px-6",
+        "text-[15px] md:text-base",
+        "transition-all",
+        "cursor-pointer",
+        // Default styling
+        "bg-[#7761EC] border-[#7761EC] text-white",
+        // Styling onHover
+        "hover:bg-[#5f4ebd] hover:border-[#5f4ebd]",
+        "focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2",
         className
       )}
     >
-      <ShareIcon size={18} />
+      {label}
     </button>
   );
 }

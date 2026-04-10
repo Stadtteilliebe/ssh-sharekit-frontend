@@ -1,4 +1,4 @@
-import React from "react";
+import { IconConfig } from "@/lib/iconConfig";
 
 type CheckIconProps = {
   size?: number;
@@ -7,8 +7,8 @@ type CheckIconProps = {
 };
 
 export function CheckIcon({
-  size = 18,
-  strokeWidth = 1.5,
+  size = IconConfig.size,
+  strokeWidth = IconConfig.strokeWidth,
   className,
 }: CheckIconProps) {
   return (

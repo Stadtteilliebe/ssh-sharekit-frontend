@@ -93,7 +93,7 @@ export function GeneralGalleryStep({
                   )}
                 >
                   <img
-                    src={img.src}
+                    src={img.previewSrc}
                     alt={img.alt}
                     className="max-h-full max-w-full object-contain"
                   />
@@ -101,18 +101,13 @@ export function GeneralGalleryStep({
 
                 <div className="flex items-center justify-between gap-4 p-4">
                   <div>
-                    <p className="text-sm font-medium text-neutral-900">
-                      {img.format === "landscape"
-                        ? "Querformat"
-                        : "Hochformat"}
-                    </p>
-                    <p className="text-sm text-neutral-600">{img.dimension}</p>
+                    <p className="text-sm opacity-80">Größe</p>
+                    <p className="text-sm">{img.dimension}</p>
                   </div>
 
                   <div className="flex items-center gap-2">
+                    <DownloadButton href={img.downloadSrc} />
                     <ShareButton onClick={() => handleOpenShare(img)} />
-
-<DownloadButton href={img.src} />
                   </div>
                 </div>
               </article>

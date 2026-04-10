@@ -5,9 +5,13 @@ import { classNames } from "@/lib/classNames";
 
 export type ShareImage = {
   id: string;
-  src: string;
+  previewSrc: string;
+  downloadSrc: string;
+  title?: string;
   alt: string;
   format: "landscape" | "portrait";
+  width: number;
+  height: number;
   dimension: string;
 };
 
@@ -182,7 +186,7 @@ export function ShareModal({ image, onClose }: ShareModalProps) {
               )}
             >
               <img
-                src={shareImage.src}
+                src={shareImage.previewSrc}
                 alt={shareImage.alt}
                 className="max-h-full max-w-full object-contain"
               />

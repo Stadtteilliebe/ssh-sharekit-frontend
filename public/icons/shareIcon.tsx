@@ -1,4 +1,4 @@
-import React from "react";
+import { IconConfig } from "@/lib/iconConfig";
 
 type ShareIconProps = {
   size?: number;
@@ -7,8 +7,8 @@ type ShareIconProps = {
 };
 
 export function ShareIcon({
-  size = 24,
-  strokeWidth = 1.5,
+  size = IconConfig.size,
+  strokeWidth = IconConfig.strokeWidth,
   className,
 }: ShareIconProps) {
   return (

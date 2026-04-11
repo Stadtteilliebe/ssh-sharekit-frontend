@@ -23,7 +23,7 @@ export function ShareButton({
         "rounded-full",
         "border-[1.5px]",
         "px-4 md:px-6",
-        "text-[15px] md:text-base",
+        "text-[14px] md:text-[15px]",
         "transition-all",
         "cursor-pointer",
         // Default styling

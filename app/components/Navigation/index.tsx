@@ -31,28 +31,33 @@ export function StickyStepNav({
   }, []);
 
   return (
-    <div className={classNames(
-      "sticky top-0 z-30 h-15 border-b-[1.5px] bg-white/90 backdrop-blur-xl duration-200 transition",
+    <div
+    className={classNames(
+      "sticky top-0 z-30 h-20 border-b-[1.5px] bg-white/80 backdrop-blur-[20px] duration-200 transition",
       showTitle ? "border-[#5EC3D8]" : "border-white"
-      )}>
-      <div className="">
-        <div className="absolute left-5">
-
-        <IconButton onClick={onBackAction} />
-        </div>
-        <div
-          className={classNames(
-            "pointer-events-none absolute left-1/2 -translate-x-1/2 text-[15px] font-medium transition-all duration-200 h-15 flex flex-col justify-center",
-            showTitle
-              ? "translate-y-0 opacity-100"
-              : "translate-y-1 opacity-0"
-          )}
-        >
-          {title}
-        </div>
-
-        <div aria-hidden="true" />
-      </div>
+    )}
+    >
+    <div className="pointer-events-none absolute left-0 top-0 h-12 w-full bg-gradient-to-b from-white to-transparent" />
+  <div className="relative h-full">
+    {/* Back Button */}
+    <div className="absolute left-5 top-4">
+      <IconButton onClick={onBackAction} />
     </div>
+
+    {/* Title */}
+    <div
+      className={classNames(
+        "pointer-events-none absolute left-1/2 -translate-x-1/2 text-[15px] uppercase font-medium transition-all duration-200 h-20 flex flex-col justify-center",
+        showTitle
+          ? "translate-y-0 opacity-100"
+          : "translate-y-1 opacity-0"
+      )}
+    >
+      {title}
+    </div>
+  </div>
+
+  {/* 👇 Gradient Fade */}
+</div>
   );
 }

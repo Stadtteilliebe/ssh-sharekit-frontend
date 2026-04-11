@@ -39,43 +39,54 @@ export function GeneralGalleryStep({
           onBackAction={onBackAction}
         />
 
-        <div className="flex flex-col p-5 md:p-20">
+        <div className="flex flex-col p-5 md:p-20 gap-5">
           <h1 className="text-2xl font-medium uppercase md:text-4xl">
             Allgemeine Assets
           </h1>
-<div className="flex flex-row w-full items-center justify-between">
+<div className="flex w-full items-center justify-between gap-4">
+  
+  {/* Linke Seite: Info */}
+  <div className="flex flex-col">
+    <span className="text-[13px] font-medium">
+      {activeFormat === "landscape" ? "Querformat" : "Hochkant"}
+    </span>
+    <span className="text-[12px] text-[#FF7526]">
+      {filteredImages.length} Assets {activeFormat === "landscape" ? "- Für LinkedIn" : ""}
+    </span>
+  </div>
 
-            {filteredImages.length} Motive 
-          <div className="inline-flex w-fit rounded-2xl bg-neutral-100 p-1">
-            <button
-              type="button"
-              onClick={() => setActiveFormat("landscape")}
-              className={classNames(
-                "rounded-xl px-4 py-2 text-sm transition",
-                activeFormat === "landscape"
-                ? "bg-black text-white"
-                : "text-neutral-700"
-              )}
-              >
-              Quer
-            </button>
+  {/* Rechte Seite: Toggle */}
+  <div className="inline-flex shrink-0 rounded-[8px] bg-[#FF7057] p-[2px]">
+    <button
+      type="button"
+      onClick={() => setActiveFormat("landscape")}
+      className={classNames(
+        "min-w-[64px] rounded-[6px] h-9 px-2 text-[13px] transition",
+        activeFormat === "landscape"
+          ? "bg-white text-[#FF7057] font-medium"
+          : "text-neutral-700"
+      )}
+    >
+      16:9
+    </button>
 
-            <button
-              type="button"
-              onClick={() => setActiveFormat("portrait")}
-              className={classNames(
-                "rounded-xl px-4 py-2 text-sm transition",
-                activeFormat === "portrait"
-                ? "bg-black text-white"
-                : "text-neutral-700"
-              )}
-              >
-              Hoch
-            </button>
-          </div>
-              </div>
+    <button
+      type="button"
+      onClick={() => setActiveFormat("portrait")}
+      className={classNames(
+        "min-w-[64px] rounded-[6px] h-9 px-2 text-[13px] transition",
+        activeFormat === "portrait"
+          ? "bg-white text-[#FF7057] font-medium "
+          : "text-neutral-700"
+      )}
+    >
+      4:5
+    </button>
+  </div>
+</div>
+              
 
-          <div className="mt-8 grid grid-cols-12 gap-4">
+          <div className="grid grid-cols-12 gap-2.5 md:gap-5">
             {filteredImages.map((img) => (
               <article
                 key={img.id}
@@ -101,10 +112,10 @@ export function GeneralGalleryStep({
                   />
                 </div>
 
-                <div className="flex items-center justify-between p-5">
+                <div className="flex items-center justify-between p-5 gap-5">
                   <div>
-                    <p className="text-[12px]">{img.title}</p>
-                    <p className="text-[12px]">{img.dimension}</p>
+                    <p className="text-[13px] font-medium">{img.title}</p>
+                    <p className="text-[12px] text-[#7761EC]">{img.dimension}</p>
                   </div>
 
                   <div className="flex items-center gap-2">
@@ -117,7 +128,7 @@ export function GeneralGalleryStep({
           </div>
 
           {filteredImages.length === 0 && (
-            <div className="mt-8 rounded-2xl bg-neutral-50 p-8 text-center text-neutral-500">
+            <div className="rounded-2xl bg-neutral-50 p-8 text-center text-neutral-500">
               Für dieses Format sind aktuell keine Bilder vorhanden.
             </div>
           )}

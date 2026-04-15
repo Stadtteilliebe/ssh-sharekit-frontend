@@ -3,26 +3,26 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { DownloadButton } from "../../DownloadButton";
 import { ShareButton } from "../../ShareButton";
-import { speakerAssets, speakerOptions } from "@/lib/sharekit/speakerAssets";
-import type { ImageFormat } from "@/lib/sharekit/types";
 import { renderTextCanvas } from "@/lib/sharekit/canvas";
 import { buildFilename, createCanvasDownloadUrl } from "@/lib/sharekit/download";
+import { exhibitorAssets, exhibitorOptions } from "@/lib/sharekit/exhibitorAssets";
+import type { ImageFormat } from "@/lib/sharekit/types";
 
-export function SpeakerCustomizeStep() {
+export function ExhibitorCustomizeStep() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
-  const [selectedSpeakerId, setSelectedSpeakerId] = useState(
-    speakerOptions[0]?.id ?? ""
+  const [selectedExhibitorId, setSelectedExhibitorId] = useState(
+    exhibitorOptions[0]?.id ?? ""
   );
   const [selectedFormat, setSelectedFormat] = useState<ImageFormat>("landscape");
   const [selectedStickerId, setSelectedStickerId] = useState("none");
   const [downloadUrl, setDownloadUrl] = useState<string>("");
 
-  const selectedSpeaker =
-    speakerOptions.find((item) => item.id === selectedSpeakerId) ??
-    speakerOptions[0];
+  const selectedExhibitor =
+    exhibitorOptions.find((item) => item.id === selectedExhibitorId) ??
+    exhibitorOptions[0];
 
-  const formatConfig = speakerAssets.formats[selectedFormat];
+  const formatConfig = exhibitorAssets.formats[selectedFormat];
   const availableStickers = useMemo(() => formatConfig.stickers, [formatConfig]);
 
   const selectedSticker =
@@ -44,9 +44,9 @@ export function SpeakerCustomizeStep() {
       try {
         await renderTextCanvas({
           canvas: canvasRef.current,
-          assetConfig: speakerAssets,
+          assetConfig: exhibitorAssets,
           format: selectedFormat,
-          displayName: selectedSpeaker?.name ?? "",
+          displayName: selectedExhibitor?.name ?? "",
           stickerSrc: selectedSticker?.src ?? null,
         });
       } catch (error) {
@@ -55,15 +55,15 @@ export function SpeakerCustomizeStep() {
     };
 
     void draw();
-  }, [selectedFormat, selectedSpeaker, selectedSticker]);
+  }, [selectedFormat, selectedExhibitor, selectedSticker]);
 
   useEffect(() => {
     const build = async () => {
       try {
         const url = await createCanvasDownloadUrl({
-          assetConfig: speakerAssets,
+          assetConfig: exhibitorAssets,
           format: selectedFormat,
-          displayName: selectedSpeaker?.name ?? "",
+          displayName: selectedExhibitor?.name ?? "",
           stickerSrc: selectedSticker?.src ?? null,
         });
 
@@ -74,18 +74,18 @@ export function SpeakerCustomizeStep() {
     };
 
     void build();
-  }, [selectedFormat, selectedSpeaker, selectedSticker]);
+  }, [selectedFormat, selectedExhibitor, selectedSticker]);
 
   return (
     <div className="grid gap-6 lg:grid-cols-[360px_1fr]">
       <div>
-        <ConfigGroup label="Speaker">
+        <ConfigGroup label="Exhibitor">
           <select
-            value={selectedSpeakerId}
-            onChange={(e) => setSelectedSpeakerId(e.target.value)}
+            value={selectedExhibitorId}
+            onChange={(e) => setSelectedExhibitorId(e.target.value)}
             className="w-full rounded-xl border border-neutral-300 bg-white px-4 py-3"
           >
-            {speakerOptions.map((item) => (
+            {exhibitorOptions.map((item) => (
               <option key={item.id} value={item.id}>
                 {item.name}
               </option>
@@ -128,13 +128,13 @@ export function SpeakerCustomizeStep() {
           <DownloadButton
             href={downloadUrl}
             filename={buildFilename([
-              "speaker",
-              selectedSpeaker?.name,
+              "exhibitor",
+              selectedExhibitor?.name,
               selectedFormat,
               selectedSticker?.label,
             ])}
           />
-          <ShareButton onClick={() => console.log("share speaker")} />
+          <ShareButton onClick={() => console.log("share exhibitor")} />
         </div>
       </div>
 

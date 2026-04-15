@@ -3,26 +3,26 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { DownloadButton } from "../../DownloadButton";
 import { ShareButton } from "../../ShareButton";
-import { speakerAssets, speakerOptions } from "@/lib/sharekit/speakerAssets";
-import type { ImageFormat } from "@/lib/sharekit/types";
 import { renderTextCanvas } from "@/lib/sharekit/canvas";
 import { buildFilename, createCanvasDownloadUrl } from "@/lib/sharekit/download";
+import { partnerAssets, partnerOptions } from "@/lib/sharekit/partnerAssets";
+import type { ImageFormat } from "@/lib/sharekit/types";
 
-export function SpeakerCustomizeStep() {
+export function PartnerCustomizeStep() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
-  const [selectedSpeakerId, setSelectedSpeakerId] = useState(
-    speakerOptions[0]?.id ?? ""
+  const [selectedPartnerId, setSelectedPartnerId] = useState(
+    partnerOptions[0]?.id ?? ""
   );
   const [selectedFormat, setSelectedFormat] = useState<ImageFormat>("landscape");
   const [selectedStickerId, setSelectedStickerId] = useState("none");
   const [downloadUrl, setDownloadUrl] = useState<string>("");
 
-  const selectedSpeaker =
-    speakerOptions.find((item) => item.id === selectedSpeakerId) ??
-    speakerOptions[0];
+  const selectedPartner =
+    partnerOptions.find((item) => item.id === selectedPartnerId) ??
+    partnerOptions[0];
 
-  const formatConfig = speakerAssets.formats[selectedFormat];
+  const formatConfig = partnerAssets.formats[selectedFormat];
   const availableStickers = useMemo(() => formatConfig.stickers, [formatConfig]);
 
   const selectedSticker =
@@ -44,9 +44,9 @@ export function SpeakerCustomizeStep() {
       try {
         await renderTextCanvas({
           canvas: canvasRef.current,
-          assetConfig: speakerAssets,
+          assetConfig: partnerAssets,
           format: selectedFormat,
-          displayName: selectedSpeaker?.name ?? "",
+          displayName: selectedPartner?.name ?? "",
           stickerSrc: selectedSticker?.src ?? null,
         });
       } catch (error) {
@@ -55,15 +55,15 @@ export function SpeakerCustomizeStep() {
     };
 
     void draw();
-  }, [selectedFormat, selectedSpeaker, selectedSticker]);
+  }, [selectedFormat, selectedPartner, selectedSticker]);
 
   useEffect(() => {
     const build = async () => {
       try {
         const url = await createCanvasDownloadUrl({
-          assetConfig: speakerAssets,
+          assetConfig: partnerAssets,
           format: selectedFormat,
-          displayName: selectedSpeaker?.name ?? "",
+          displayName: selectedPartner?.name ?? "",
           stickerSrc: selectedSticker?.src ?? null,
         });
 
@@ -74,18 +74,18 @@ export function SpeakerCustomizeStep() {
     };
 
     void build();
-  }, [selectedFormat, selectedSpeaker, selectedSticker]);
+  }, [selectedFormat, selectedPartner, selectedSticker]);
 
   return (
     <div className="grid gap-6 lg:grid-cols-[360px_1fr]">
       <div>
-        <ConfigGroup label="Speaker">
+        <ConfigGroup label="Partner">
           <select
-            value={selectedSpeakerId}
-            onChange={(e) => setSelectedSpeakerId(e.target.value)}
+            value={selectedPartnerId}
+            onChange={(e) => setSelectedPartnerId(e.target.value)}
             className="w-full rounded-xl border border-neutral-300 bg-white px-4 py-3"
           >
-            {speakerOptions.map((item) => (
+            {partnerOptions.map((item) => (
               <option key={item.id} value={item.id}>
                 {item.name}
               </option>
@@ -128,13 +128,13 @@ export function SpeakerCustomizeStep() {
           <DownloadButton
             href={downloadUrl}
             filename={buildFilename([
-              "speaker",
-              selectedSpeaker?.name,
+              "partner",
+              selectedPartner?.name,
               selectedFormat,
               selectedSticker?.label,
             ])}
           />
-          <ShareButton onClick={() => console.log("share speaker")} />
+          <ShareButton onClick={() => console.log("share partner")} />
         </div>
       </div>
 

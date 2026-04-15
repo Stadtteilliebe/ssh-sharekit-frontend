@@ -4,20 +4,27 @@ import { useEffect, useState } from "react";
 import { classNames } from "@/lib/classNames";
 import { IconButton } from "../IconButton";
 
-type StickyStepNavProps = {
+type NavProps = {
   title: string;
   onBackAction: () => void;
   backLabel?: string;
+  titleVisibility?: "on-scroll" | "always";
 };
 
-export function StickyStepNav({
+export function Nav({
   title,
   onBackAction,
   backLabel = "Zurück",
-}: StickyStepNavProps) {
-  const [showTitle, setShowTitle] = useState(false);
+  titleVisibility = "on-scroll",
+}: NavProps) {
+  const [showTitle, setShowTitle] = useState(titleVisibility === "always");
 
   useEffect(() => {
+    if (titleVisibility === "always") {
+      setShowTitle(true);
+      return;
+    }
+
     const handleScroll = () => {
       setShowTitle(window.scrollY >= 60);
     };
@@ -28,34 +35,31 @@ export function StickyStepNav({
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, []);
+  }, [titleVisibility]);
 
   return (
     <div
-    className={classNames(
-      "sticky top-0 z-30 h-20 bg-white/90 backdrop-blur-[20px] duration-200 transition",
-      showTitle ? "border-[#5EC3D8]" : "border-white"
-    )}
-    >
-    <div className="pointer-events-none absolute left-0 top-0 h-12 w-full bg-gradient-to-b from-white to-transparent" />
-  <div className="relative h-full">
-    {/* Back Button */}
-    <div className="absolute left-5 md:left-10 lg:left-20 top-4">
-      <IconButton onClick={onBackAction} />
-    </div>
-
-    {/* Title */}
-    <div
       className={classNames(
-        "pointer-events-none absolute left-1/2 -translate-x-1/2 text-[15px] uppercase font-medium transition-all duration-200 h-20 flex flex-col justify-center",
-        showTitle
-          ? "translate-y-0 opacity-100"
-          : "translate-y-1 opacity-0"
+        "sticky left-0 top-0 z-30 h-20 bg-white/90 backdrop-blur-[20px] duration-200 transition",
+        showTitle ? "border-[#5EC3D8]" : "border-white"
       )}
     >
-      {title}
+      <div className="pointer-events-none absolute left-0 top-0 h-12 w-full bg-gradient-to-b from-white to-transparent" />
+
+      <div className="relative h-full">
+        <div className="absolute left-5 top-4 md:left-10 lg:left-20">
+          <IconButton onClick={onBackAction} />
+        </div>
+
+        <div
+          className={classNames(
+            "pointer-events-none absolute left-1/2 flex h-20 -translate-x-1/2 flex-col justify-center text-[15px] font-medium uppercase transition-all duration-200",
+            showTitle ? "translate-y-0 opacity-100" : "translate-y-1 opacity-0"
+          )}
+        >
+          {title}
+        </div>
+      </div>
     </div>
-  </div>
-</div>
   );
 }

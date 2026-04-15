@@ -1,26 +1,24 @@
 "use client";
 
 import { useState } from "react";
-import { EntryStep } from "@/app/components/sharekit/steps/EntryStep";
-import { GeneralGalleryStep } from "@/app/components/sharekit/steps/GeneralGalleryStep";
-import { MotifSelectStep } from "@/app/components/sharekit/steps/MotifSelectStep";
-import { WorkspaceStep } from "@/app/components/sharekit/steps/WorkspaceStep";
-import type { Motif } from "@/lib/sharekit/motifs";
+import { GeneralGalleryStep } from "./steps/GeneralGalleryStep";
+import { EntryStep } from "./steps/EntryStep";
+import { WorkspaceStep } from "./steps/WorkspaceStep";
 
-type Step = "entry" | "general-gallery" | "motif-select" | "workspace";
-type Role = "speaker" | "exhibitor";
+
+type Step = "entry" | "general-gallery" | "workspace";
+type Role = "speaker" | "partner" | "exhibitor";
 
 export function SharekitFlow() {
   const [step, setStep] = useState<Step>("entry");
   const [role, setRole] = useState<Role>("speaker");
-  const [selectedMotif, setSelectedMotif] = useState<Motif | null>(null);
 
   if (step === "entry") {
     return (
       <EntryStep
         onStartWithRole={(nextRole) => {
           setRole(nextRole);
-          setStep("motif-select");
+          setStep("workspace");
         }}
         onSelectGeneralFlow={() => setStep("general-gallery")}
       />
@@ -28,19 +26,7 @@ export function SharekitFlow() {
   }
 
   if (step === "general-gallery") {
-    return <GeneralGalleryStep onBackAction={() => setStep("entry")} />
-  }
-
-  if (step === "motif-select") {
-    return (
-      <MotifSelectStep
-        onBack={() => setStep("entry")}
-        onSelectMotif={(motif) => {
-          setSelectedMotif(motif);
-          setStep("workspace");
-        }}
-      />
-    );
+    return <GeneralGalleryStep onBackAction={() => setStep("entry")} />;
   }
 
   if (step === "workspace") {
@@ -49,10 +35,8 @@ export function SharekitFlow() {
         <div className="mx-auto max-w-7xl">
           <WorkspaceStep
             role={role}
-            motif={selectedMotif}
             onRoleChange={setRole}
-            onBack={() => setStep("entry")}
-            onChangeMotif={() => setStep("motif-select")}
+            onBackAction={() => setStep("entry")}
           />
         </div>
       </main>

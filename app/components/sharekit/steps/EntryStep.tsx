@@ -5,7 +5,7 @@ import { useState } from "react";
 import { Button } from "../../Button";
 import { Toggle } from "../../Toggle";
 
-type Role = "speaker" | "exhibitor";
+type Role = "speaker" | "exhibitor" | "partner";
 
 type EntryStepProps = {
   onStartWithRole: (role: Role) => void;
@@ -59,14 +59,15 @@ export function EntryStep({
               "gap-2.5"
             )}>
 
-              <Toggle
-                value={role}
-                onChange={setRole}
-                options={[
-                  { label: "Speaker", value: "speaker" },
-                  { label: "Exhibitor", value: "exhibitor" },
-                ]}
-              />
+<Toggle
+  value={role}
+  onChange={setRole}
+  options={[
+    { label: "Speaker", value: "speaker" },
+    { label: "Exhibitor", value: "exhibitor" },
+    { label: "Partner", value: "partner" },
+  ]}
+/>
 
               <Button
                 onClick={() => onStartWithRole(role)}

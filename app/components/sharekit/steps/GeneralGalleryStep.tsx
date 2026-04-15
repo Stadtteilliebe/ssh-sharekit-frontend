@@ -3,7 +3,7 @@
 import { useMemo, useState } from "react";
 import { generalImages } from "@/lib/sharekit/generalImages";
 import { classNames } from "@/lib/classNames";
-import { StickyStepNav } from "../../Navigation";
+import { Nav } from "../../Navigation";
 import { ShareButton } from "../../ShareButton";
 import { ShareImage, ShareModal } from "../../ShareModal";
 import { DownloadButton } from "../../DownloadButton";
@@ -36,10 +36,11 @@ export function GeneralGalleryStep({
   return (
     <>
       <section className="bg-white py-20">
-        <StickyStepNav
-          title={GENERAL_ASSET_STEP.title}
-          onBackAction={onBackAction}
-        />
+<Nav
+  title="Speaker"
+  onBackAction={onBackAction}
+  titleVisibility="on-scroll"
+/>
 
         <div
           className={classNames(

@@ -27,9 +27,9 @@ export function ShareButton({
         "transition-all",
         "cursor-pointer",
         // Default styling
-        "bg-[#7761EC] border-[#7761EC] text-white",
+        "bg-[#FF7526] border-[#FF7526] text-white",
         // Styling onHover
-        "hover:bg-[#5f4ebd] hover:border-[#5f4ebd]",
+        "hover:bg-[#FF7057] hover:border-[#FF7057]",
         "focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2",
         className
       )}

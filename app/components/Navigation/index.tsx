@@ -33,14 +33,14 @@ export function StickyStepNav({
   return (
     <div
     className={classNames(
-      "sticky top-0 z-30 h-20 border-b-[1.5px] bg-white/80 backdrop-blur-[20px] duration-200 transition",
+      "sticky top-0 z-30 h-20 bg-white/90 backdrop-blur-[20px] duration-200 transition",
       showTitle ? "border-[#5EC3D8]" : "border-white"
     )}
     >
     <div className="pointer-events-none absolute left-0 top-0 h-12 w-full bg-gradient-to-b from-white to-transparent" />
   <div className="relative h-full">
     {/* Back Button */}
-    <div className="absolute left-5 top-4">
+    <div className="absolute left-5 md:left-10 lg:left-20 top-4">
       <IconButton onClick={onBackAction} />
     </div>
 
@@ -56,8 +56,6 @@ export function StickyStepNav({
       {title}
     </div>
   </div>
-
-  {/* 👇 Gradient Fade */}
 </div>
   );
 }

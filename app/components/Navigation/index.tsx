@@ -9,6 +9,7 @@ type NavProps = {
   onBackAction: () => void;
   backLabel?: string;
   titleVisibility?: "on-scroll" | "always";
+  position?: "sticky" | "fixed";
 };
 
 export function Nav({
@@ -16,6 +17,7 @@ export function Nav({
   onBackAction,
   backLabel = "Zurück",
   titleVisibility = "on-scroll",
+  position = "sticky",
 }: NavProps) {
   const [showTitle, setShowTitle] = useState(titleVisibility === "always");
 
@@ -40,7 +42,8 @@ export function Nav({
   return (
     <div
       className={classNames(
-        "sticky left-0 top-0 z-30 h-20 bg-white/90 backdrop-blur-[20px] duration-200 transition",
+        "left-0 top-0 z-30 h-20 bg-white/90 backdrop-blur-[20px] duration-200 transition",
+        position === "sticky" ? "sticky" : "fixed w-full",
         showTitle ? "border-[#5EC3D8]" : "border-white"
       )}
     >

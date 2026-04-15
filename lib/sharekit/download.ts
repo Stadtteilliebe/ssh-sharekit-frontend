@@ -1,5 +1,5 @@
 import type { ImageFormat, RoleAssetConfig } from "./types";
-import { renderTextCanvas } from "./canvas";
+import { renderExhibitorCanvas, renderTextCanvas } from "./canvas";
 
 export async function createCanvasDownloadUrl({
   assetConfig,
@@ -19,6 +19,30 @@ export async function createCanvasDownloadUrl({
     assetConfig,
     format,
     displayName,
+    stickerSrc,
+  });
+
+  return exportCanvas.toDataURL("image/png");
+}
+
+export async function createExhibitorCanvasDownloadUrl({
+  assetConfig,
+  format,
+  exhibitorImageSrc,
+  stickerSrc,
+}: {
+  assetConfig: RoleAssetConfig;
+  format: ImageFormat;
+  exhibitorImageSrc?: string;
+  stickerSrc: string | null;
+}) {
+  const exportCanvas = document.createElement("canvas");
+
+  await renderExhibitorCanvas({
+    canvas: exportCanvas,
+    assetConfig,
+    format,
+    exhibitorImageSrc,
     stickerSrc,
   });
 

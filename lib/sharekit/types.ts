@@ -4,6 +4,7 @@ export type ImageFormat = "landscape" | "portrait";
 export type SharekitOption = {
   id: string;
   name: string;
+  imageUrl?: string;
 };
 
 export type StickerOption = {

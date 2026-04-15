@@ -161,9 +161,6 @@ export function ShareModal({ image, onClose }: ShareModalProps) {
               >
                 Bild teilen
               </p>
-              <p className="mt-1 text-sm text-neutral-600">
-                Teile eine OG-fähige Link-Vorschau für LinkedIn.
-              </p>
             </div>
 
             <button
@@ -176,7 +173,8 @@ export function ShareModal({ image, onClose }: ShareModalProps) {
             </button>
           </div>
 
-          <div className="mt-5 overflow-hidden rounded-2xl border border-neutral-200 bg-neutral-50">
+          <div className="mt-5 overflow-hidden bg-neutral-50">
+            <img src="assets/top.jpg" />
             <div
               className={classNames(
                 "flex items-center justify-center bg-neutral-100",
@@ -192,17 +190,8 @@ export function ShareModal({ image, onClose }: ShareModalProps) {
               />
             </div>
 
-            <div className="p-4">
-              <p className="text-sm font-medium text-neutral-900">
-                {shareImage.alt}
-              </p>
-              <p className="text-sm text-neutral-600">
-                {shareImage.dimension}
-              </p>
-              <p className="mt-3 break-all text-xs text-neutral-500">
-                {getOgShareUrl(shareImage.id)}
-              </p>
-            </div>
+            <img src="assets/bottom.jpg" />
+
           </div>
 
           <div className="mt-5 grid gap-2">

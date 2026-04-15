@@ -3,20 +3,20 @@
 import { classNames } from "@/lib/classNames";
 
 type ShareButtonProps = {
-  onClick: () => void;
+  onClickAction: () => void;
   className?: string;
   label?: string;
 };
 
 export function ShareButton({
-  onClick,
+  onClickAction,
   className,
   label = "Teilen",
 }: ShareButtonProps) {
   return (
     <button
       type="button"
-      onClick={onClick}
+      onClick={onClickAction}
       className={classNames(
         "inline-flex items-center justify-center",
         "h-10 md:h-11",

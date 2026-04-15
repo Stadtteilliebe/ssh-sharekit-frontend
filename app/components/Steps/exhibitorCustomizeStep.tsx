@@ -16,6 +16,7 @@ import {
 } from "@/lib/sharekit/exhibitorAssets";
 import type { ImageFormat } from "@/lib/sharekit/types";
 import { classNames } from "@/lib/classNames";
+import { FormatSwitch } from "../FormatSwitch";
 
 export function ExhibitorCustomizeStep() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -138,21 +139,26 @@ export function ExhibitorCustomizeStep() {
   return (
     <>
       <div className="grid grid-cols-12 bg-[#F6F6F6]">
-        <div className="flex flex-col col-span-8">
+<div className="col-span-7 pt-20">
+  <div className="flex h-[calc(100vh-80px)] items-center justify-center">
+    <div className="flex max-h-full max-w-full items-center justify-center overflow-hidden">
+      <canvas
+        ref={canvasRef}
+        width={formatConfig.width}
+        height={formatConfig.height}
+        className={classNames(
+          "block max-w-full",
+          selectedFormat === "landscape"
+            ? "h-auto w-full"
+            : "h-auto max-h-[80vh] w-auto"
+        )}
+      />
+    </div>
+  </div>
+</div>
 
-          <div
-            className={`overflow-hidden ${formatConfig.previewClassName}`}
-            >
-            <canvas
-              ref={canvasRef}
-              width={formatConfig.width}
-              height={formatConfig.height}
-              className="block h-full w-full"
-              />
-          </div>
-              </div>
+        <div className="flex flex-col col-span-5 p-20">
 
-        <div>
           <ConfigGroup label="Exhibitor">
             <select
               value={selectedExhibitorId}
@@ -171,30 +177,16 @@ export function ExhibitorCustomizeStep() {
             </select>
           </ConfigGroup>
 
-          <ConfigGroup label="Format">
-            <div className="flex flex-wrap gap-2">
-              <ConfigButton
-                isActive={selectedFormat === "landscape"}
-                onClick={() =>
-                  updateUrl({
-                    format: "landscape",
-                  })
-                }
-              >
-                Landscape
-              </ConfigButton>
-              <ConfigButton
-                isActive={selectedFormat === "portrait"}
-                onClick={() =>
-                  updateUrl({
-                    format: "portrait",
-                  })
-                }
-              >
-                Portrait
-              </ConfigButton>
-            </div>
-          </ConfigGroup>
+<ConfigGroup label="Format">
+  <FormatSwitch
+    activeFormat={selectedFormat}
+    onChangeFormat={(format) =>
+      updateUrl({
+        format,
+      })
+    }
+  />
+</ConfigGroup>
 
           <ConfigGroup label="Störer">
             <div className="flex flex-wrap gap-2">

@@ -31,7 +31,7 @@ export const exhibitorAssets: RoleAssetConfig = {
       baseImageSrc: "assets/exhibitor/hub-disrupt-sharekit-exhibitor-background-1920x1080.png",
       stickers: [
         { id: "none", label: "Keiner", src: null },
-        { id: "exhibitor-1", label: "Join us", src: "assets/exhibitor/hub-disrupt-sharekit-exhibitor-badge-01-1920x1080.png" },
+        { id: "exhibitor-1", label: "Join us!", src: "assets/exhibitor/hub-disrupt-sharekit-exhibitor-badge-01-1920x1080.png" },
         { id: "exhibitor-2", label: "Meet us", src: "assets/exhibitor/hub-disrupt-sharekit-exhibitor-badge-02-1920x1080.png" },
       ],
     },
@@ -42,8 +42,8 @@ export const exhibitorAssets: RoleAssetConfig = {
       baseImageSrc: "assets/exhibitor/hub-disrupt-sharekit-exhibitor-background-1080x1350.png",
       stickers: [
         { id: "none", label: "Keiner", src: null },
-        { id: "exhibitor-1", label: "Störer 1", src: "assets/exhibitor/hub-disrupt-sharekit-exhibitor-badge-01-1080x1350.png" },
-        { id: "exhibitor-2", label: "Störer 2", src: "assets/exhibitor/hub-disrupt-sharekit-exhibitor-badge-02-1080x1350.png" },
+        { id: "exhibitor-1", label: "Join us!", src: "assets/exhibitor/hub-disrupt-sharekit-exhibitor-badge-01-1080x1350.png" },
+        { id: "exhibitor-2", label: "Meet us", src: "assets/exhibitor/hub-disrupt-sharekit-exhibitor-badge-02-1080x1350.png" },
       ],
     },
   },

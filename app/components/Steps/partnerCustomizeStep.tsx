@@ -134,7 +134,7 @@ export function PartnerCustomizeStep() {
               selectedSticker?.label,
             ])}
           />
-          <ShareButton onClick={() => console.log("share partner")} />
+          <ShareButton onClickAction={() => console.log("share partner")} />
         </div>
       </div>
 

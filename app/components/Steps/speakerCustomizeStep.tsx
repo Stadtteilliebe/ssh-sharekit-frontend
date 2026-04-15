@@ -134,7 +134,7 @@ export function SpeakerCustomizeStep() {
               selectedSticker?.label,
             ])}
           />
-          <ShareButton onClick={() => console.log("share speaker")} />
+          <ShareButton onClickAction={() => console.log("share speaker")} />
         </div>
       </div>
 

@@ -6,7 +6,7 @@ type ImageFormat = "landscape" | "portrait";
 
 type FormatSwitchProps = {
   activeFormat: ImageFormat;
-  assetCount: number;
+  assetCount?: number;
   onChangeFormat: (format: ImageFormat) => void;
 };
 
@@ -37,8 +37,12 @@ export function FormatSwitch({
           "text-[12px] lg:text-[13px]",
           "text-[#7761EC]"
         )}>
-          {assetCount} Assets{" "}
-          {activeFormat === "landscape" ? "- Für LinkedIn" : ""}
+{assetCount && (
+  <>
+    {assetCount} Assets{" - "}
+  </>
+)}
+          {activeFormat === "landscape" ? "Für LinkedIn" : ""}
         </span>
       </div>
 

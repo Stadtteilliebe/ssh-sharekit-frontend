@@ -244,25 +244,32 @@ export function ExhibitorCustomizeStep() {
                 />
               </ConfigGroup>
             </div>
+            <div
+              className={classNames(
+                "flex flex-col",
+                "px-5 py-10 lg:px-5 lg:py-10 xl:px-10 xl:py-20",
+              )}
+            >
+              <div
+                className={classNames(
+                  "flex flex-row md:items-center justify-between",
+                  "rounded-[8px] border-[1.5px] border-[#B9AEF3] bg-white",
+                  "p-5",
+                  "gap-5",
+                )}
+              >
+                <div>
+                  <p className="text-[13px] font-medium">Test</p>
+                  <p className="text-[12px] text-[#7761EC]">Test</p>
+                </div>
 
-<div className="sticky bottom-0 z-20 border-t border-neutral-200 bg-white/95 p-4 backdrop-blur-md md:static md:border-0 md:bg-white md:p-10 xl:p-20">
-  <div className="flex flex-col gap-4">
-    <div className="flex flex-col gap-1">
-      <span className="text-sm font-medium text-neutral-900">
-        Dein Asset ist bereit
-      </span>
-      <span className="text-[13px] text-neutral-500">
-        Jetzt herunterladen oder direkt teilen.
-      </span>
-    </div>
-
-    <ActionButtons
-      downloadUrl={downloadUrl}
-      filename={filename}
-      onShare={handleOpenShare}
-    />
-  </div>
-</div>
+                <ActionButtons
+                  downloadUrl={downloadUrl}
+                  filename={filename}
+                  onShare={handleOpenShare}
+                />
+              </div>
+            </div>
           </div>
         </div>
       </div>

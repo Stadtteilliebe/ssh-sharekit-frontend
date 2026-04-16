@@ -49,7 +49,7 @@ export function DownloadButton({
         "focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2",
 
         status === "idle" &&
-          "border-[#FF7057] bg-white text-[#FF7057] hover:bg-[#FF7057] hover:text-white",
+          "border-[#7761EC] bg-white text-[#7761EC] hover:bg-[#7761EC] hover:text-white",
 
         status === "done" &&
           "border-[#FF7057] bg-[#FF7057] text-white",

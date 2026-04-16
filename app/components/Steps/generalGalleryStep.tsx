@@ -35,9 +35,9 @@ export function GeneralGalleryStep({
   const newLocal = "text-white hover:bg-[#816BF6] cursor-pointer";
   return (
     <>
-      <section className="bg-white py-20">
+      <section className="bg-white">
 <Nav
-  title="Speaker"
+  title={GENERAL_ASSET_STEP.title}
   onBackAction={onBackAction}
   titleVisibility="on-scroll"
   position="sticky"
@@ -67,7 +67,7 @@ export function GeneralGalleryStep({
                 <article
                   key={img.id}
                   className={classNames(
-                    "overflow-hidden rounded-[8px] border-[1.5px] border-[#FF7057] bg-white",
+                    "overflow-hidden rounded-[8px] border-[1.5px] border-[#B9AEF3] bg-white",
                     activeFormat === "landscape"
                       ? "col-span-12 md:col-span-6"
                       : "col-span-12 md:col-span-6 xl:col-span-4",
@@ -91,7 +91,7 @@ export function GeneralGalleryStep({
                   <div className="flex items-center justify-between p-5 gap-5">
                     <div>
                       <p className="text-[13px] font-medium">{img.title}</p>
-                      <p className="text-[12px] text-[#FF7057]">
+                      <p className="text-[12px] text-[#7761EC]">
                         {img.dimension}
                       </p>
                     </div>

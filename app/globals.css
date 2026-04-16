@@ -33,5 +33,5 @@ h1 {
 }
 
 h4 {
-  @apply font-medium uppercase text-xs md:text-base;
+  @apply text-sm md:text-base;
 }

@@ -29,7 +29,7 @@ export function ShareButton({
         // Default styling
         "bg-[#FF7526] border-[#FF7526] text-white",
         // Styling onHover
-        "hover:bg-[#FF7057] hover:border-[#FF7057]",
+        "hover:bg-white hover:border-[#FF7057] hover:text-inherit",
         "focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2",
         className
       )}

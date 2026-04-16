@@ -16,7 +16,7 @@ export function ConfigGroup({
   return (
     <div
       className={classNames(
-        "flex flex-row justify-between w-full gap-2.5",
+        "flex flex-row justify-between items-center w-full gap-2.5",
         className,
       )}
     ><div>
@@ -27,7 +27,7 @@ export function ConfigGroup({
     </div>
 
       <div className={classNames(
-        "w-60 md:w-80"
+        "w-65 md:w-80 lg:w-90"
       )}>
         {children}
       </div>

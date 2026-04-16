@@ -1,52 +1,116 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { DownloadButton } from "../DownloadButton";
 import { ShareButton } from "../ShareButton";
-import { renderTextCanvas } from "@/lib/sharekit/canvas";
-import { buildFilename, createCanvasDownloadUrl } from "@/lib/sharekit/download";
+import { ShareImage, ShareModal } from "../ShareModal";
+import { ConfigButton } from "../ConfigButton";
+import { ConfigGroup } from "../ConfigGroup";
+import { ConfigSelect } from "../ConfigSelect";
+import { FormatSwitch } from "../FormatSwitch";
+import { classNames } from "@/lib/classNames";
+import { renderLabelCanvas } from "@/lib/sharekit/canvas";
+import {
+  buildFilename,
+  createLabelCanvasDownloadUrl,
+} from "@/lib/sharekit/download";
 import { partnerAssets, partnerOptions } from "@/lib/sharekit/partnerAssets";
 import type { ImageFormat } from "@/lib/sharekit/types";
 
 export function PartnerCustomizeStep() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
-  const [selectedPartnerId, setSelectedPartnerId] = useState(
-    partnerOptions[0]?.id ?? ""
-  );
-  const [selectedFormat, setSelectedFormat] = useState<ImageFormat>("landscape");
-  const [selectedStickerId, setSelectedStickerId] = useState("none");
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
   const [downloadUrl, setDownloadUrl] = useState<string>("");
+  const [shareImage, setShareImage] = useState<ShareImage | null>(null);
+
+  const selectedPartnerId =
+    searchParams.get("item") ?? partnerOptions[0]?.id ?? "";
+
+  const selectedFormat =
+    (searchParams.get("format") as ImageFormat | null) ?? "landscape";
+
+  const selectedStickerId = searchParams.get("sticker") ?? "none";
 
   const selectedPartner =
     partnerOptions.find((item) => item.id === selectedPartnerId) ??
     partnerOptions[0];
 
   const formatConfig = partnerAssets.formats[selectedFormat];
-  const availableStickers = useMemo(() => formatConfig.stickers, [formatConfig]);
+  const availableStickers = useMemo(
+    () => formatConfig.stickers,
+    [formatConfig],
+  );
 
   const selectedSticker =
     availableStickers.find((item) => item.id === selectedStickerId) ??
     availableStickers[0];
 
+  const filename = buildFilename([
+    "partner",
+    selectedPartner?.label ?? selectedPartner?.name,
+    selectedFormat,
+    selectedSticker?.id !== "none" ? selectedSticker?.label : null,
+  ]);
+
+  function updateUrl(updates: Record<string, string | null | undefined>) {
+    const params = new URLSearchParams(searchParams.toString());
+
+    Object.entries(updates).forEach(([key, value]) => {
+      if (!value) {
+        params.delete(key);
+        return;
+      }
+
+      params.set(key, value);
+    });
+
+    router.replace(`${pathname}?${params.toString()}`, { scroll: false });
+  }
+
+  function handleOpenShare() {
+    if (!downloadUrl) return;
+
+    setShareImage({
+      id: `${selectedPartner?.id}-${selectedFormat}-${selectedSticker?.id ?? "none"}`,
+      title: selectedPartner?.name ?? "Partner Asset",
+      previewSrc: downloadUrl,
+      downloadSrc: downloadUrl,
+      alt: selectedPartner?.name ?? "Partner Asset",
+      format: selectedFormat,
+      width: formatConfig.width,
+      height: formatConfig.height,
+      dimension: `${formatConfig.width.toLocaleString("de-DE")} x ${formatConfig.height.toLocaleString("de-DE")} px`,
+    });
+  }
+
+  function handleCloseShare() {
+    setShareImage(null);
+  }
+
   useEffect(() => {
     const stickerStillExists = availableStickers.some(
-      (item) => item.id === selectedStickerId
+      (item) => item.id === selectedStickerId,
     );
 
     if (!stickerStillExists) {
-      setSelectedStickerId("none");
+      updateUrl({ sticker: "none" });
     }
   }, [availableStickers, selectedStickerId]);
 
   useEffect(() => {
     const draw = async () => {
       try {
-        await renderTextCanvas({
+        await renderLabelCanvas({
           canvas: canvasRef.current,
           assetConfig: partnerAssets,
           format: selectedFormat,
-          displayName: selectedPartner?.name ?? "",
+          logoSrc: selectedPartner?.imageUrl,
+          labelAssetSrc: selectedPartner?.labelAssetSrc?.[selectedFormat] ?? "",
           stickerSrc: selectedSticker?.src ?? null,
         });
       } catch (error) {
@@ -60,10 +124,11 @@ export function PartnerCustomizeStep() {
   useEffect(() => {
     const build = async () => {
       try {
-        const url = await createCanvasDownloadUrl({
+        const url = await createLabelCanvasDownloadUrl({
           assetConfig: partnerAssets,
           format: selectedFormat,
-          displayName: selectedPartner?.name ?? "",
+          logoSrc: selectedPartner?.imageUrl,
+          labelAssetSrc: selectedPartner?.labelAssetSrc?.[selectedFormat] ?? "",
           stickerSrc: selectedSticker?.src ?? null,
         });
 
@@ -77,116 +142,168 @@ export function PartnerCustomizeStep() {
   }, [selectedFormat, selectedPartner, selectedSticker]);
 
   return (
-    <div className="grid gap-6 lg:grid-cols-[360px_1fr]">
-      <div>
-        <ConfigGroup label="Partner">
-          <select
-            value={selectedPartnerId}
-            onChange={(e) => setSelectedPartnerId(e.target.value)}
-            className="w-full rounded-xl border border-neutral-300 bg-white px-4 py-3"
+    <>
+      <div
+        className="grid grid-cols-12 bg-[#282828] bg-cover bg-center bg-no-repeat"
+        style={{
+          backgroundImage: "url('/assets/hubdisrupt-hexblur-background_720.jpg')",
+        }}
+      >
+        <div
+          className={classNames(
+            "col-span-full lg:col-span-7 xl:col-span-7",
+            "pt-12 lg:pt-15",
+          )}
+        >
+          <div
+            className={classNames(
+              "flex items-center justify-center",
+              "pl-0 md:pl-10 w-full aspect-[16/9] lg:h-[calc(100vh-60px)] lg:aspect-auto",
+            )}
           >
-            {partnerOptions.map((item) => (
-              <option key={item.id} value={item.id}>
-                {item.name}
-              </option>
-            ))}
-          </select>
-        </ConfigGroup>
-
-        <ConfigGroup label="Format">
-          <div className="flex flex-wrap gap-2">
-            <ConfigButton
-              isActive={selectedFormat === "landscape"}
-              onClick={() => setSelectedFormat("landscape")}
+            <div
+              className={classNames(
+                "flex items-center justify-center",
+                "max-h-full max-w-full overflow-hidden",
+              )}
             >
-              Landscape
-            </ConfigButton>
-            <ConfigButton
-              isActive={selectedFormat === "portrait"}
-              onClick={() => setSelectedFormat("portrait")}
-            >
-              Portrait
-            </ConfigButton>
+              <canvas
+                ref={canvasRef}
+                width={formatConfig.width}
+                height={formatConfig.height}
+                className={classNames(
+                  "block max-w-full",
+                  selectedFormat === "landscape"
+                    ? "h-auto w-full"
+                    : "h-auto max-h-[calc(100vw/16*9)] lg:max-h-[calc(100vh-60px)] w-auto",
+                )}
+              />
+            </div>
           </div>
-        </ConfigGroup>
+        </div>
 
-        <ConfigGroup label="Störer">
-          <div className="flex flex-wrap gap-2">
-            {availableStickers.map((item) => (
-              <ConfigButton
-                key={item.id}
-                isActive={selectedStickerId === item.id}
-                onClick={() => setSelectedStickerId(item.id)}
+        <div
+          className={classNames(
+            "col-span-full lg:col-span-5 xl:col-span-5",
+            "flex w-full flex-col justify-center",
+            "lg:pt-15",
+          )}
+        >
+          <div
+            className={classNames(
+              "flex flex-col",
+              "lg:px-5 lg:py-10 xl:px-10 xl:py-20",
+            )}
+          >
+            <div
+              className={classNames(
+                "flex flex-col justify-between overflow-hidden bg-white",
+                "lg:rounded-[20px]",
+              )}
+            >
+              <div
+                className={classNames(
+                  "flex flex-col",
+                  "gap-5 lg:gap-5 xl:gap-10",
+                  "p-5 lg:p-5 xl:p-10",
+                )}
               >
-                {item.label}
-              </ConfigButton>
-            ))}
+                <h2>Dein Sharekit als Partner</h2>
+
+                <div className="flex flex-col gap-5">
+                  <ConfigGroup label="Partner">
+                    <ConfigSelect
+                      value={selectedPartnerId}
+                      onChange={(value) =>
+                        updateUrl({
+                          item: value,
+                        })
+                      }
+                      options={partnerOptions.map((item) => ({
+                        value: item.id,
+                        label: item.name,
+                      }))}
+                    />
+                  </ConfigGroup>
+
+                  <ConfigGroup label="Badge">
+                    <div className="flex flex-wrap gap-2">
+                      {availableStickers.map((item) => (
+                        <ConfigButton
+                          key={item.id}
+                          isActive={selectedStickerId === item.id}
+                          onClick={() =>
+                            updateUrl({
+                              sticker: item.id,
+                            })
+                          }
+                        >
+                          {item.label}
+                        </ConfigButton>
+                      ))}
+                    </div>
+                  </ConfigGroup>
+
+                  <ConfigGroup label="Format">
+                    <FormatSwitch
+                      activeFormat={selectedFormat}
+                      onChangeFormat={(format) =>
+                        updateUrl({
+                          format,
+                        })
+                      }
+                    />
+                  </ConfigGroup>
+                </div>
+              </div>
+
+              <div className="flex flex-col">
+                <div
+                  className={classNames(
+                    "flex flex-row justify-between gap-5 md:items-center",
+                    "border-t border-t-[1.5px] border-[#B9AEF3]",
+                    "p-10",
+                  )}
+                >
+                  <div>
+                    <p className="text-[13px] font-medium">
+                      Dein Sharebild ist fertig
+                    </p>
+                    <p className="text-[12px] text-[#7761EC]">
+                      Teile es jetzt direkt oder lade es herunter.
+                    </p>
+                  </div>
+
+                  <ActionButtons
+                    downloadUrl={downloadUrl}
+                    filename={filename}
+                    onShare={handleOpenShare}
+                  />
+                </div>
+              </div>
+            </div>
           </div>
-        </ConfigGroup>
-
-        <div className="mt-6 flex items-center gap-3">
-          <DownloadButton
-            href={downloadUrl}
-            filename={buildFilename([
-              "partner",
-              selectedPartner?.name,
-              selectedFormat,
-              selectedSticker?.label,
-            ])}
-          />
-          <ShareButton onClickAction={() => console.log("share partner")} />
         </div>
       </div>
 
-      <div className="bg-neutral-100 p-10">
-        <div className={`overflow-hidden bg-white ${formatConfig.previewClassName}`}>
-          <canvas
-            ref={canvasRef}
-            width={formatConfig.width}
-            height={formatConfig.height}
-            className="block h-full w-full"
-          />
-        </div>
-      </div>
-    </div>
+      <ShareModal image={shareImage} onClose={handleCloseShare} />
+    </>
   );
 }
 
-function ConfigGroup({
-  label,
-  children,
+function ActionButtons({
+  downloadUrl,
+  filename,
+  onShare,
 }: {
-  label: string;
-  children: React.ReactNode;
+  downloadUrl: string;
+  filename: string;
+  onShare: () => void;
 }) {
   return (
-    <div className="mb-6">
-      <p className="mb-2 text-sm font-medium text-neutral-700">{label}</p>
-      {children}
+    <div className="flex items-center gap-3">
+      <DownloadButton href={downloadUrl} filename={filename} />
+      <ShareButton onClickAction={onShare} />
     </div>
-  );
-}
-
-function ConfigButton({
-  isActive,
-  onClick,
-  children,
-}: {
-  isActive: boolean;
-  onClick: () => void;
-  children: React.ReactNode;
-}) {
-  return (
-    <button
-      type="button"
-      onClick={onClick}
-      className={`rounded-xl px-4 py-3 text-sm transition ${
-        isActive
-          ? "bg-black text-white"
-          : "border border-neutral-300 bg-white text-neutral-700"
-      }`}
-    >
-      {children}
-    </button>
   );
 }

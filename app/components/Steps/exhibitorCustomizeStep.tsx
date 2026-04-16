@@ -144,18 +144,22 @@ export function ExhibitorCustomizeStep() {
 
   return (
     <>
-      <div className="grid grid-cols-12">
+      <div
+        className="grid grid-cols-12 bg-[#282828] bg-cover bg-center bg-no-repeat"
+        style={{
+          backgroundImage: "url('assets/hubdisrupt-hexblur-background_720.jpg')",
+        }}
+      >
         <div
           className={classNames(
             "col-span-full lg:col-span-7 xl:col-span-7",
             "pt-12 lg:pt-15",
-            "bg-[#282828]",
           )}
         >
           <div
             className={classNames(
               "flex items-center justify-center",
-              "w-full aspect-[16/9] lg:h-[calc(100vh-60px)] lg:aspect-auto",
+              "pl-0 md:pl-10 w-full aspect-[16/9] lg:h-[calc(100vh-60px)] lg:aspect-auto",
             )}
           >
             <div
@@ -182,25 +186,37 @@ export function ExhibitorCustomizeStep() {
 
         <div
           className={classNames(
+            "flex flex-col",
             "col-span-full lg:col-span-5 xl:col-span-5",
             "lg:pt-15",
-            "bg-white",
+            "w-full justify-center",
           )}
         >
+          <div className={classNames(
+            "flex flex-col",
+            "lg:px-5 lg:py-10 xl:px-10 xl:py-20"
+          )}>
+
           <div
             className={classNames(
               "flex flex-col",
-              "h-[100%]",
-              "justify-between",
+              "bg-white",
+              "lg:rounded-[20px] justify-between overflow-hidden",
             )}
-          >
+            >
             <div
               className={classNames(
                 "flex flex-col",
-                "px-5 py-10 lg:px-5 lg:py-10 xl:px-10 xl:py-20",
-                "gap-5 lg:gap-7.5 xl:gap-10",
+                "p-5 lg:p-5 xl:p-10 ",
+                "gap-5 lg:gap-5 xl:gap-10",
               )}
             >
+              <h2>Dein Sharekit als Exhibitor</h2>
+              <div className={classNames(
+                "flex flex-col",
+                "gap-5"
+              )}>
+
               <ConfigGroup label="Exhibitor">
                 <ConfigSelect
                   value={selectedExhibitorId}
@@ -213,20 +229,20 @@ export function ExhibitorCustomizeStep() {
                     value: item.id,
                     label: item.name,
                   }))}
-                />
+                  />
               </ConfigGroup>
 
               <ConfigGroup label="Badge">
                 <div className="flex flex-wrap gap-2">
                   {availableStickers.map((item) => (
                     <ConfigButton
-                      key={item.id}
-                      isActive={selectedStickerId === item.id}
-                      onClick={() =>
-                        updateUrl({
-                          sticker: item.id,
-                        })
-                      }
+                    key={item.id}
+                    isActive={selectedStickerId === item.id}
+                    onClick={() =>
+                      updateUrl({
+                        sticker: item.id,
+                      })
+                    }
                     >
                       {item.label}
                     </ConfigButton>
@@ -241,26 +257,26 @@ export function ExhibitorCustomizeStep() {
                       format,
                     })
                   }
-                />
+                  />
               </ConfigGroup>
             </div>
-            <div
-              className={classNames(
-                "flex flex-col",
-                "px-5 py-10 lg:px-5 lg:py-10 xl:px-10 xl:py-20",
-              )}
-            >
+                  </div>
+            <div className={classNames("flex flex-col")}>
               <div
                 className={classNames(
                   "flex flex-row md:items-center justify-between",
-                  "rounded-[8px] border-[1.5px] border-[#B9AEF3] bg-white",
-                  "p-5",
+                  "border-t-[1.5px] border-t border-[#B9AEF3]",
+                  "p-10",
                   "gap-5",
                 )}
               >
                 <div>
-                  <p className="text-[13px] font-medium">Test</p>
-                  <p className="text-[12px] text-[#7761EC]">Test</p>
+                  <p className="text-[13px] font-medium">
+                    Dein Sharebild ist fertig
+                  </p>
+                  <p className="text-[12px] text-[#7761EC]">
+                    Jetzt herunterladen oder direkt teilen.
+                  </p>
                 </div>
 
                 <ActionButtons
@@ -271,7 +287,7 @@ export function ExhibitorCustomizeStep() {
               </div>
             </div>
           </div>
-        </div>
+        </div></div>
       </div>
 
       <ShareModal image={shareImage} onClose={handleCloseShare} />

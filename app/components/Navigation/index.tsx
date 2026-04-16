@@ -42,14 +42,14 @@ export function Nav({
   return (
     <div
       className={classNames(
-        "left-0 top-0 z-30 h-12 md:h-15 bg-[#6B92E2] duration-200 transition",
+        "left-0 top-0 z-30 h-12 md:h-15 bg-[#242424] duration-200 transition",
         position === "sticky" ? "sticky" : "fixed w-full",
-        showTitle ? "border-[#5EC3D8]" : "border-white"
+        showTitle ? "border-[#282828]" : "border-white"
       )}
     >
 
       <div className="relative h-full">
-        <div className="absolute flex h-full left-5 top-0 md:left-10 lg:left-20 items-center">
+        <div className="absolute flex h-full left-5 top-0 md:left-5 lg:left-10 items-center">
           <IconButton onClick={onBackAction} />
         </div>
 

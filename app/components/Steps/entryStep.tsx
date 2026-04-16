@@ -63,7 +63,7 @@ export function EntryStep({
                 options={[
                   /* { label: "Speaker", value: "speaker" }, */
                   { label: "Exhibitor", value: "exhibitor" },
-                  /*  { label: "Partner", value: "partner" }, */
+                  { label: "Partner", value: "partner" },
                 ]}
               />
 

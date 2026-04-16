@@ -1,9 +1,54 @@
 import type { RoleAssetConfig, SharekitOption } from "./types";
 
 export const partnerOptions: SharekitOption[] = [
-  { id: "partner-1", name: "Partner 1" },
-  { id: "partner-2", name: "Partner 2" },
-  { id: "partner-3", name: "Partner 3" },
+  {
+    id: "1",
+    name: "Coffee",
+    imageUrl: "/assets/exhibitor/logo-2.png",
+    label: "coffee",
+    labelAssetSrc: {
+      landscape:
+        "/assets/partner/hub-disrupt-sharekit-partner-label-coffee-1920x1080.png",
+      portrait:
+        "/assets/partner/hub-disrupt-sharekit-partner-label-coffee-1080x1350.png",
+    },
+  },
+  {
+    id: "2",
+    name: "Lab",
+    imageUrl: "/assets/exhibitor/logo-2.png",
+    label: "lab",
+    labelAssetSrc: {
+      landscape:
+        "/assets/partner/hub-disrupt-sharekit-partner-label-lab-1920x1080.png",
+      portrait:
+        "/assets/partner/hub-disrupt-sharekit-partner-label-lab-1080x1350.png",
+    },
+  },
+  {
+    id: "3",
+    name: "Themenwelt",
+    imageUrl: "/assets/exhibitor/logo-2.png",
+    label: "themenwelt",
+    labelAssetSrc: {
+      landscape:
+        "/assets/partner/hub-disrupt-sharekit-partner-label-themenwelt-1920x1080.png",
+      portrait:
+        "/assets/partner/hub-disrupt-sharekit-partner-label-themenwelt-1080x1350.png",
+    },
+  },
+  {
+    id: "4",
+    name: "Workshop",
+    imageUrl: "/assets/exhibitor/logo-2.png",
+    label: "workshop",
+    labelAssetSrc: {
+      landscape:
+        "/assets/partner/hub-disrupt-sharekit-partner-label-workshop-1920x1080.png",
+      portrait:
+        "/assets/partner/hub-disrupt-sharekit-partner-label-workshop-1080x1350.png",
+    },
+  },
 ];
 
 export const partnerAssets: RoleAssetConfig = {
@@ -13,34 +58,53 @@ export const partnerAssets: RoleAssetConfig = {
       width: 1920,
       height: 1080,
       previewClassName: "aspect-[16/9]",
-      baseImageSrc: "/sharekit/partner/partner-landscape.png",
+      baseImageSrc:
+        "/assets/partner/hub-disrupt-sharekit-partner-background-1920x1080.png",
       stickers: [
         { id: "none", label: "Kein Badge", src: null },
-        { id: "partner-1", label: "Störer 1", src: "/sharekit/partner/sticker-1.png" },
-        { id: "partner-2", label: "Störer 2", src: "/sharekit/partner/sticker-2.png" },
+        {
+          id: "badge-1",
+          label: "Join us!",
+          src: "/assets/partner/hub-disrupt-sharekit-partner-badge-01-1920x1080.png",
+        },
+        {
+          id: "badge-2",
+          label: "Meet us",
+          src: "/assets/partner/hub-disrupt-sharekit-partner-badge-02-1920x1080.png",
+        },
       ],
+      circlePlacement: {
+        xFactor: 0.8,
+        yFactor: 0.5,
+        radiusFactor: 0.15,
+        paddingFactor: 0,
+      },
     },
     portrait: {
       width: 1080,
       height: 1350,
       previewClassName: "aspect-[4/5]",
-      baseImageSrc: "/sharekit/partner/partner-portrait.png",
+      baseImageSrc:
+        "/assets/partner/hub-disrupt-sharekit-partner-background-1080x1350.png",
       stickers: [
         { id: "none", label: "Kein Badge", src: null },
-        { id: "partner-1", label: "Störer 1", src: "/sharekit/partner/sticker-1.png" },
-        { id: "partner-2", label: "Störer 2", src: "/sharekit/partner/sticker-2.png" },
+        {
+          id: "badge-1",
+          label: "Join us!",
+          src: "/assets/partner/hub-disrupt-sharekit-partner-badge-01-1080x1350.png",
+        },
+        {
+          id: "badge-2",
+          label: "Meet us",
+          src: "/assets/partner/hub-disrupt-sharekit-partner-badge-02-1080x1350.png",
+        },
       ],
+      circlePlacement: {
+        xFactor: 0.72,
+        yFactor: 0.24,
+        radiusFactor: 0.19,
+        paddingFactor: 0,
+      },
     },
-  },
-  text: {
-    xFactor: 0.5,
-    yFactor: 0.82,
-    fontSizeFactor: {
-      landscape: 0.04,
-      portrait: 0.055,
-    },
-    fontFamily: "Rubik",
-    fontWeight: 400,
-    color: "#ffffff",
   },
 };

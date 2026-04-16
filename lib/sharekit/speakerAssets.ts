@@ -15,7 +15,7 @@ export const speakerAssets: RoleAssetConfig = {
       previewClassName: "aspect-[16/9]",
       baseImageSrc: "/sharekit/speaker/speaker-landscape.png",
       stickers: [
-        { id: "none", label: "Keiner", src: null },
+        { id: "none", label: "Kein Badge", src: null },
         { id: "speaker-1", label: "Störer 1", src: "/sharekit/speaker/sticker-1.png" },
         { id: "speaker-2", label: "Störer 2", src: "/sharekit/speaker/sticker-2.png" },
       ],
@@ -26,7 +26,7 @@ export const speakerAssets: RoleAssetConfig = {
       previewClassName: "aspect-[4/5]",
       baseImageSrc: "/sharekit/speaker/speaker-portrait.png",
       stickers: [
-        { id: "none", label: "Keiner", src: null },
+        { id: "none", label: "Kein Badge", src: null },
         { id: "speaker-1", label: "Störer 1", src: "/sharekit/speaker/sticker-1.png" },
         { id: "speaker-2", label: "Störer 2", src: "/sharekit/speaker/sticker-2.png" },
       ],

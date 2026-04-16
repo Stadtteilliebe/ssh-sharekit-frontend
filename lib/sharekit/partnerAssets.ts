@@ -15,7 +15,7 @@ export const partnerAssets: RoleAssetConfig = {
       previewClassName: "aspect-[16/9]",
       baseImageSrc: "/sharekit/partner/partner-landscape.png",
       stickers: [
-        { id: "none", label: "Keiner", src: null },
+        { id: "none", label: "Kein Badge", src: null },
         { id: "partner-1", label: "Störer 1", src: "/sharekit/partner/sticker-1.png" },
         { id: "partner-2", label: "Störer 2", src: "/sharekit/partner/sticker-2.png" },
       ],
@@ -26,7 +26,7 @@ export const partnerAssets: RoleAssetConfig = {
       previewClassName: "aspect-[4/5]",
       baseImageSrc: "/sharekit/partner/partner-portrait.png",
       stickers: [
-        { id: "none", label: "Keiner", src: null },
+        { id: "none", label: "Kein Badge", src: null },
         { id: "partner-1", label: "Störer 1", src: "/sharekit/partner/sticker-1.png" },
         { id: "partner-2", label: "Störer 2", src: "/sharekit/partner/sticker-2.png" },
       ],

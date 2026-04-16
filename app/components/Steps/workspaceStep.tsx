@@ -1,6 +1,6 @@
 "use client";
 
-
+import { useEffect } from "react";
 import { Nav } from "../Navigation";
 import { ExhibitorCustomizeStep } from "./exhibitorCustomizeStep";
 import { PartnerCustomizeStep } from "./partnerCustomizeStep";
@@ -21,8 +21,17 @@ const titleByRole: Record<Role, string> = {
 };
 
 export function WorkspaceStep({ role, onBackAction }: WorkspaceStepProps) {
+  useEffect(() => {
+    const original = document.documentElement.style.backgroundColor;
+
+    document.documentElement.style.backgroundColor = "#6B92E2";
+
+    return () => {
+      document.documentElement.style.backgroundColor = original;
+    };
+  }, []);
   return (
-    <section className="bg-neutral-100">
+    <section className="min-h-screen">
       <Nav
         title={titleByRole[role]}
         onBackAction={onBackAction}

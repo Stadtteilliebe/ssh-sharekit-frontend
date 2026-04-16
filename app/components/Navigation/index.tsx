@@ -42,12 +42,11 @@ export function Nav({
   return (
     <div
       className={classNames(
-        "left-0 top-0 z-30 h-15 bg-white duration-200 transition",
+        "left-0 top-0 z-30 h-12 md:h-15 bg-[#6B92E2] duration-200 transition",
         position === "sticky" ? "sticky" : "fixed w-full",
         showTitle ? "border-[#5EC3D8]" : "border-white"
       )}
     >
-      <div className="pointer-events-none absolute left-0 top-0 h-12 w-full bg-gradient-to-b from-white to-transparent" />
 
       <div className="relative h-full">
         <div className="absolute flex h-full left-5 top-0 md:left-10 lg:left-20 items-center">
@@ -56,7 +55,7 @@ export function Nav({
 
         <div
           className={classNames(
-            "pointer-events-none absolute left-1/2 flex h-15 -translate-x-1/2 flex-col justify-center text-[15px] font-medium uppercase transition-all duration-200",
+            "pointer-events-none absolute h-full left-1/2 flex -translate-x-1/2 flex-col justify-center text-[15px] font-medium uppercase transition-all duration-200 text-white",
             showTitle ? "translate-y-0 opacity-100" : "translate-y-1 opacity-0"
           )}
         >

@@ -28,7 +28,7 @@ export function IconButton({
         "cursor-pointer",
         // Default styling
         // "bg-[#f7f7f7] border-[#5EC3D8]
-        "text-black",
+        "text-white",
         // Styling onHover
         "hover:bg-[#5f4ebd] hover:border-[#5f4ebd]",
         "focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2",

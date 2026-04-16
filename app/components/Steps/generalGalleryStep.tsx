@@ -59,6 +59,7 @@ export function GeneralGalleryStep({
               activeFormat={activeFormat}
               assetCount={filteredImages.length}
               onChangeFormat={setActiveFormat}
+              showContent={true}
             />
 
             <div className="grid grid-cols-12 gap-2.5 md:gap-5">

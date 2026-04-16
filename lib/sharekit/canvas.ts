@@ -128,9 +128,9 @@ export async function renderExhibitorCanvas({
       image: exhibitorImage,
       width: formatConfig.width,
       height: formatConfig.height,
-      xFactor: 0.8,
-      yFactor: format === "landscape" ? 0.5 : 0.76,
-      radiusFactor: format === "landscape" ? 0.15 : 0.13,
+      xFactor: format === "landscape" ? 0.8 : 0.73,
+      yFactor: format === "landscape" ? 0.5 : 0.22,
+      radiusFactor: format === "landscape" ? 0.15 : 0.2,
       paddingFactor: 0,
     });
   }

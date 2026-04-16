@@ -17,6 +17,9 @@ import {
 import type { ImageFormat } from "@/lib/sharekit/types";
 import { classNames } from "@/lib/classNames";
 import { FormatSwitch } from "../FormatSwitch";
+import { ConfigGroup } from "../ConfigGroup";
+import { ConfigSelect } from "../ConfigSelect";
+import { ConfigButton } from "../ConfigButton";
 
 export function ExhibitorCustomizeStep() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -142,20 +145,26 @@ export function ExhibitorCustomizeStep() {
   return (
     <>
       <div className="grid grid-cols-12">
-        <div className={classNames(
-          "col-span-full md:col-span-8 xl:col-span-7",
-          "pt-15",
-          "bg-[#484854]",
-        )}>
-          <div className={classNames(
-            "flex items-center justify-center",
-            "w-full aspect-[16/9] md:h-[calc(100vh-60px)] md:aspect-auto"
-          )}>
-            <div className={classNames(
+        <div
+          className={classNames(
+            "col-span-full lg:col-span-7 xl:col-span-7",
+            "pt-12 lg:pt-15",
+            "bg-[#282828]",
+          )}
+        >
+          <div
+            className={classNames(
               "flex items-center justify-center",
-              "max-h-full max-w-full",
-              "overflow-hidden"
-            )}>
+              "w-full aspect-[16/9] lg:h-[calc(100vh-60px)] lg:aspect-auto",
+            )}
+          >
+            <div
+              className={classNames(
+                "flex items-center justify-center",
+                "max-h-full max-w-full",
+                "overflow-hidden",
+              )}
+            >
               <canvas
                 ref={canvasRef}
                 width={formatConfig.width}
@@ -164,51 +173,53 @@ export function ExhibitorCustomizeStep() {
                   "block max-w-full",
                   selectedFormat === "landscape"
                     ? "h-auto w-full"
-                    : "h-auto max-h-[calc(100vw/16*9)] md:max-h-[calc(100vh-60px)] w-auto",
+                    : "h-auto max-h-[calc(100vw/16*9)] lg:max-h-[calc(100vh-60px)] w-auto",
                 )}
               />
             </div>
           </div>
         </div>
 
-        <div className={classNames(
-          "col-span-full md:col-span-4 xl:col-span-5",
-          "md:pt-15",
-          "bg-white"
-        )}>
-          <div className={classNames(
-            "flex flex-col",
-            "h-[100%]",
-            "justify-between"
-          )}>
-            <div className={classNames(
+        <div
+          className={classNames(
+            "col-span-full lg:col-span-5 xl:col-span-5",
+            "lg:pt-15",
+            "bg-white",
+          )}
+        >
+          <div
+            className={classNames(
               "flex flex-col",
-              "p-5 md:p-10 xl:p-20",
-              "gap-5 md:gap-7.5 xl:gap-10",
-            )}>
+              "h-[100%]",
+              "justify-between",
+            )}
+          >
+            <div
+              className={classNames(
+                "flex flex-col",
+                "px-5 py-10 lg:px-5 lg:py-10 xl:px-10 xl:py-20",
+                "gap-5 lg:gap-7.5 xl:gap-10",
+              )}
+            >
+              <ConfigGroup label="Exhibitor">
+                <ConfigSelect
+                  value={selectedExhibitorId}
+                  onChange={(value) =>
+                    updateUrl({
+                      item: value,
+                    })
+                  }
+                  options={exhibitorOptions.map((item) => ({
+                    value: item.id,
+                    label: item.name,
+                  }))}
+                />
+              </ConfigGroup>
 
-          <ConfigGroup label="Exhibitor">
-            <select
-              value={selectedExhibitorId}
-              onChange={(e) =>
-                updateUrl({
-                  item: e.target.value,
-                })
-              }
-              className="w-full rounded-xl border border-neutral-300 bg-white px-4 py-3"
-              >
-              {exhibitorOptions.map((item) => (
-                <option key={item.id} value={item.id}>
-                  {item.name}
-                </option>
-              ))}
-            </select>
-          </ConfigGroup>
-
-                <ConfigGroup label="Badge">
-                  <div className="flex flex-wrap gap-2">
-                    {availableStickers.map((item) => (
-                      <ConfigButton
+              <ConfigGroup label="Badge">
+                <div className="flex flex-wrap gap-2">
+                  {availableStickers.map((item) => (
+                    <ConfigButton
                       key={item.id}
                       isActive={selectedStickerId === item.id}
                       onClick={() =>
@@ -216,33 +227,43 @@ export function ExhibitorCustomizeStep() {
                           sticker: item.id,
                         })
                       }
-                      >
-                        {item.label}
-                      </ConfigButton>
-                    ))}
-                  </div>
-                </ConfigGroup>
-          <ConfigGroup label="Format">
-            <FormatSwitch
-              activeFormat={selectedFormat}
-              onChangeFormat={(format) =>
-                updateUrl({
-                  format,
-                })
-              }
-              />
-          </ConfigGroup>
-
-              </div>
-
-            <div className="sticky bottom-0 z-20 border-t border-neutral-200 bg-white/95 p-4 backdrop-blur-md md:static md:border-0 md:bg-white md:p-10 xl:p-20">
-              <ActionButtons
-                downloadUrl={downloadUrl}
-                filename={filename}
-                onShare={handleOpenShare}
-              />
+                    >
+                      {item.label}
+                    </ConfigButton>
+                  ))}
+                </div>
+              </ConfigGroup>
+              <ConfigGroup label="Format">
+                <FormatSwitch
+                  activeFormat={selectedFormat}
+                  onChangeFormat={(format) =>
+                    updateUrl({
+                      format,
+                    })
+                  }
+                />
+              </ConfigGroup>
             </div>
-              </div>
+
+<div className="sticky bottom-0 z-20 border-t border-neutral-200 bg-white/95 p-4 backdrop-blur-md md:static md:border-0 md:bg-white md:p-10 xl:p-20">
+  <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-1">
+      <span className="text-sm font-medium text-neutral-900">
+        Dein Asset ist bereit
+      </span>
+      <span className="text-[13px] text-neutral-500">
+        Jetzt herunterladen oder direkt teilen.
+      </span>
+    </div>
+
+    <ActionButtons
+      downloadUrl={downloadUrl}
+      filename={filename}
+      onShare={handleOpenShare}
+    />
+  </div>
+</div>
+          </div>
         </div>
       </div>
 
@@ -265,48 +286,5 @@ function ActionButtons({
       <DownloadButton href={downloadUrl} filename={filename} />
       <ShareButton onClickAction={onShare} />
     </div>
-  );
-}
-
-function ConfigGroup({
-  label,
-  children,
-}: {
-  label: string;
-  children: React.ReactNode;
-}) {
-  return (
-    <div className={classNames(
-      "flex flex-col",
-      "gap-2.5"
-    )}>
-      <h4>{label}</h4>
-      {children}
-    </div>
-  );
-}
-
-function ConfigButton({
-  isActive,
-  onClick,
-  children,
-}: {
-  isActive: boolean;
-  onClick: () => void;
-  children: React.ReactNode;
-}) {
-  return (
-    <button
-      type="button"
-      onClick={onClick}
-      className={classNames(
-        "rounded-xl px-4 py-3 text-sm transition",
-        isActive
-          ? "bg-black text-white"
-          : "border border-neutral-300 bg-white text-neutral-700",
-      )}
-    >
-      {children}
-    </button>
   );
 }

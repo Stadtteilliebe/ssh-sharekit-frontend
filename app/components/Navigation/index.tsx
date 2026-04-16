@@ -42,7 +42,7 @@ export function Nav({
   return (
     <div
       className={classNames(
-        "left-0 top-0 z-30 h-20 bg-white/90 backdrop-blur-[20px] duration-200 transition",
+        "left-0 top-0 z-30 h-15 bg-white duration-200 transition",
         position === "sticky" ? "sticky" : "fixed w-full",
         showTitle ? "border-[#5EC3D8]" : "border-white"
       )}
@@ -50,13 +50,13 @@ export function Nav({
       <div className="pointer-events-none absolute left-0 top-0 h-12 w-full bg-gradient-to-b from-white to-transparent" />
 
       <div className="relative h-full">
-        <div className="absolute left-5 top-4 md:left-10 lg:left-20">
+        <div className="absolute flex h-full left-5 top-0 md:left-10 lg:left-20 items-center">
           <IconButton onClick={onBackAction} />
         </div>
 
         <div
           className={classNames(
-            "pointer-events-none absolute left-1/2 flex h-20 -translate-x-1/2 flex-col justify-center text-[15px] font-medium uppercase transition-all duration-200",
+            "pointer-events-none absolute left-1/2 flex h-15 -translate-x-1/2 flex-col justify-center text-[15px] font-medium uppercase transition-all duration-200",
             showTitle ? "translate-y-0 opacity-100" : "translate-y-1 opacity-0"
           )}
         >

@@ -1,9 +1,9 @@
 "use client";
 
-import { useMemo } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 import { buildUpdatedQueryString, getParam } from "@/lib/sharekit/urlState";
+import type { SharekitOption } from "@/lib/sharekit/types";
 import { EntryStep } from "./entryStep";
 import { GeneralGalleryStep } from "./generalGalleryStep";
 import { WorkspaceStep } from "./workspaceStep";
@@ -11,7 +11,11 @@ import { WorkspaceStep } from "./workspaceStep";
 type Step = "entry" | "general-gallery" | "workspace";
 type Role = "speaker" | "partner" | "exhibitor";
 
-export function SharekitFlow() {
+type SharekitFlowProps = {
+  exhibitorOptions: SharekitOption[];
+};
+
+export function SharekitFlow({ exhibitorOptions }: SharekitFlowProps) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -63,6 +67,7 @@ export function SharekitFlow() {
         <div className="mx-auto">
           <WorkspaceStep
             role={role}
+            exhibitorOptions={exhibitorOptions}
             onRoleChangeAction={(nextRole) => {
               updateUrl({
                 role: nextRole,

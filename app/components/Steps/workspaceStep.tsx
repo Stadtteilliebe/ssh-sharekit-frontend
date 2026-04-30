@@ -5,11 +5,13 @@ import { Nav } from "../Navigation";
 import { ExhibitorCustomizeStep } from "./exhibitorCustomizeStep";
 import { PartnerCustomizeStep } from "./partnerCustomizeStep";
 import { SpeakerCustomizeStep } from "./speakerCustomizeStep";
+import type { SharekitOption } from "@/lib/sharekit/types";
 
 type Role = "speaker" | "partner" | "exhibitor";
 
 type WorkspaceStepProps = {
   role: Role;
+  exhibitorOptions: SharekitOption[];
   onRoleChangeAction: (role: Role) => void;
   onBackAction: () => void;
 };
@@ -20,7 +22,11 @@ const titleByRole: Record<Role, string> = {
   exhibitor: "Exhibitor",
 };
 
-export function WorkspaceStep({ role, onBackAction }: WorkspaceStepProps) {
+export function WorkspaceStep({
+  role,
+  exhibitorOptions,
+  onBackAction,
+}: WorkspaceStepProps) {
   useEffect(() => {
     const original = document.documentElement.style.backgroundColor;
 
@@ -30,6 +36,7 @@ export function WorkspaceStep({ role, onBackAction }: WorkspaceStepProps) {
       document.documentElement.style.backgroundColor = original;
     };
   }, []);
+
   return (
     <section className="min-h-screen">
       <Nav
@@ -41,7 +48,9 @@ export function WorkspaceStep({ role, onBackAction }: WorkspaceStepProps) {
 
       {role === "speaker" && <SpeakerCustomizeStep />}
       {role === "partner" && <PartnerCustomizeStep />}
-      {role === "exhibitor" && <ExhibitorCustomizeStep />}
+      {role === "exhibitor" && (
+        <ExhibitorCustomizeStep exhibitorOptions={exhibitorOptions} />
+      )}
     </section>
   );
 }

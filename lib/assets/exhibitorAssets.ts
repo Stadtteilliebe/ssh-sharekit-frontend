@@ -1,25 +1,4 @@
-import type { RoleAssetConfig, SharekitOption } from "./types";
-
-export const exhibitorOptions: SharekitOption[] = [
-  {
-    id: "1",
-    name: "Robot Valley",
-    imageUrl:
-      "assets/exhibitor/logo-3.png",
-  },
-  {
-    id: "2",
-    name: "Phoenix Contact",
-    imageUrl:
-      "assets/exhibitor/logo-2.png",
-  },
-  {
-    id: "3",
-    name: "omlox",
-    imageUrl:
-      "assets/exhibitor/logo-1.jpg",
-  },
-];
+import type { RoleAssetConfig } from "../sharekit/types";
 
 export const exhibitorAssets: RoleAssetConfig = {
   role: "exhibitor",

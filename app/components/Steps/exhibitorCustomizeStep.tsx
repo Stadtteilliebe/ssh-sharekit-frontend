@@ -10,18 +10,21 @@ import {
   buildFilename,
   createExhibitorCanvasDownloadUrl,
 } from "@/lib/sharekit/download";
-import {
-  exhibitorAssets,
-  exhibitorOptions,
-} from "@/lib/sharekit/exhibitorAssets";
-import type { ImageFormat } from "@/lib/sharekit/types";
+import { exhibitorAssets } from "@/lib/assets/exhibitorAssets";
+import type { ImageFormat, SharekitOption } from "@/lib/sharekit/types";
 import { classNames } from "@/lib/classNames";
 import { FormatSwitch } from "../FormatSwitch";
 import { ConfigGroup } from "../ConfigGroup";
 import { ConfigSelect } from "../ConfigSelect";
 import { ConfigButton } from "../ConfigButton";
 
-export function ExhibitorCustomizeStep() {
+type ExhibitorCustomizeStepProps = {
+  exhibitorOptions: SharekitOption[];
+};
+
+export function ExhibitorCustomizeStep({
+  exhibitorOptions,
+}: ExhibitorCustomizeStepProps) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
   const router = useRouter();
@@ -44,6 +47,7 @@ export function ExhibitorCustomizeStep() {
     exhibitorOptions[0];
 
   const formatConfig = exhibitorAssets.formats[selectedFormat];
+
   const availableStickers = useMemo(
     () => formatConfig.stickers,
     [formatConfig],
@@ -76,14 +80,14 @@ export function ExhibitorCustomizeStep() {
   }
 
   function handleOpenShare() {
-    if (!downloadUrl) return;
+    if (!downloadUrl || !selectedExhibitor) return;
 
     setShareImage({
-      id: `${selectedExhibitor?.id}-${selectedFormat}-${selectedSticker?.id ?? "none"}`,
-      title: selectedExhibitor?.name ?? "Exhibitor Asset",
+      id: `${selectedExhibitor.id}-${selectedFormat}-${selectedSticker?.id ?? "none"}`,
+      title: selectedExhibitor.name ?? "Exhibitor Asset",
       previewSrc: downloadUrl,
       downloadSrc: downloadUrl,
-      alt: selectedExhibitor?.name ?? "Exhibitor Asset",
+      alt: selectedExhibitor.name ?? "Exhibitor Asset",
       format: selectedFormat,
       width: formatConfig.width,
       height: formatConfig.height,
@@ -106,13 +110,15 @@ export function ExhibitorCustomizeStep() {
   }, [availableStickers, selectedStickerId]);
 
   useEffect(() => {
+    if (!selectedExhibitor) return;
+
     const draw = async () => {
       try {
         await renderExhibitorCanvas({
           canvas: canvasRef.current,
           assetConfig: exhibitorAssets,
           format: selectedFormat,
-          exhibitorImageSrc: selectedExhibitor?.imageUrl,
+          exhibitorImageSrc: selectedExhibitor.imageUrl,
           stickerSrc: selectedSticker?.src ?? null,
         });
       } catch (error) {
@@ -124,12 +130,14 @@ export function ExhibitorCustomizeStep() {
   }, [selectedFormat, selectedExhibitor, selectedSticker]);
 
   useEffect(() => {
+    if (!selectedExhibitor) return;
+
     const build = async () => {
       try {
         const url = await createExhibitorCanvasDownloadUrl({
           assetConfig: exhibitorAssets,
           format: selectedFormat,
-          exhibitorImageSrc: selectedExhibitor?.imageUrl,
+          exhibitorImageSrc: selectedExhibitor.imageUrl,
           stickerSrc: selectedSticker?.src ?? null,
         });
 
@@ -142,12 +150,21 @@ export function ExhibitorCustomizeStep() {
     void build();
   }, [selectedFormat, selectedExhibitor, selectedSticker]);
 
+  if (!selectedExhibitor) {
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-[#282828] text-white">
+        Keine Exhibitor-Daten gefunden.
+      </div>
+    );
+  }
+
   return (
     <>
       <div
         className="grid grid-cols-12 bg-[#282828] bg-cover bg-center bg-no-repeat"
         style={{
-          backgroundImage: "url('assets/hubdisrupt-hexblur-background_720.jpg')",
+          backgroundImage:
+            "url('/assets/hubdisrupt-hexblur-background_720.jpg')",
         }}
       >
         <div
@@ -159,16 +176,11 @@ export function ExhibitorCustomizeStep() {
           <div
             className={classNames(
               "flex items-center justify-center",
-              "pl-0 md:pl-10 w-full aspect-[16/9] lg:h-[calc(100vh-60px)] lg:aspect-auto",
+              "pl-0 md:pl-10",
+              "w-full aspect-[16/9] lg:h-[calc(100vh-60px)] lg:aspect-auto",
             )}
           >
-            <div
-              className={classNames(
-                "flex items-center justify-center",
-                "max-h-full max-w-full",
-                "overflow-hidden",
-              )}
-            >
+            <div className="flex max-h-full max-w-full items-center justify-center overflow-hidden">
               <canvas
                 ref={canvasRef}
                 width={formatConfig.width}
@@ -177,7 +189,7 @@ export function ExhibitorCustomizeStep() {
                   "block max-w-full",
                   selectedFormat === "landscape"
                     ? "h-auto w-full"
-                    : "h-auto max-h-[calc(100vw/16*9)] lg:max-h-[calc(100vh-60px)] w-auto",
+                    : "h-auto max-h-[calc(100vw/16*9)] w-auto lg:max-h-[calc(100vh-60px)]",
                 )}
               />
             </div>
@@ -186,108 +198,101 @@ export function ExhibitorCustomizeStep() {
 
         <div
           className={classNames(
-            "flex flex-col",
             "col-span-full lg:col-span-5 xl:col-span-5",
+            "flex w-full flex-col justify-center",
             "lg:pt-15",
-            "w-full justify-center",
           )}
         >
-          <div className={classNames(
-            "flex flex-col",
-            "lg:px-5 lg:py-10 xl:px-10 xl:py-20"
-          )}>
-
-          <div
-            className={classNames(
-              "flex flex-col",
-              "bg-white",
-              "lg:rounded-[20px] justify-between overflow-hidden",
-            )}
-            >
+          <div className="flex flex-col lg:px-5 lg:py-10 xl:px-10 xl:py-20">
             <div
               className={classNames(
-                "flex flex-col",
-                "p-5 lg:p-5 xl:p-10 ",
-                "gap-5 lg:gap-5 xl:gap-10",
+                "flex flex-col justify-between overflow-hidden bg-white",
+                "lg:rounded-[20px]",
               )}
             >
-              <h2>Dein Sharekit als Exhibitor</h2>
-              <div className={classNames(
-                "flex flex-col",
-                "gap-5"
-              )}>
-
-              <ConfigGroup label="Exhibitor">
-                <ConfigSelect
-                  value={selectedExhibitorId}
-                  onChange={(value) =>
-                    updateUrl({
-                      item: value,
-                    })
-                  }
-                  options={exhibitorOptions.map((item) => ({
-                    value: item.id,
-                    label: item.name,
-                  }))}
-                  />
-              </ConfigGroup>
-
-              <ConfigGroup label="Badge">
-                <div className="flex flex-wrap gap-2">
-                  {availableStickers.map((item) => (
-                    <ConfigButton
-                    key={item.id}
-                    isActive={selectedStickerId === item.id}
-                    onClick={() =>
-                      updateUrl({
-                        sticker: item.id,
-                      })
-                    }
-                    >
-                      {item.label}
-                    </ConfigButton>
-                  ))}
-                </div>
-              </ConfigGroup>
-              <ConfigGroup label="Format">
-                <FormatSwitch
-                  activeFormat={selectedFormat}
-                  onChangeFormat={(format) =>
-                    updateUrl({
-                      format,
-                    })
-                  }
-                  />
-              </ConfigGroup>
-            </div>
-                  </div>
-            <div className={classNames("flex flex-col")}>
               <div
                 className={classNames(
-                  "flex flex-row md:items-center justify-between",
-                  "border-t-[1.5px] border-t border-[#B9AEF3]",
-                  "p-10",
-                  "gap-5",
+                  "flex flex-col",
+                  "p-5 lg:p-5 xl:p-10",
+                  "gap-5 lg:gap-5 xl:gap-10",
                 )}
               >
-                <div>
-                  <p className="text-[13px] font-medium">
-                    Dein Sharebild ist fertig
-                  </p>
-                  <p className="text-[12px] text-[#7761EC]">
-                    Jetzt herunterladen oder direkt teilen.
-                  </p>
-                </div>
+                <h2>Dein Sharekit als Exhibitor</h2>
 
-                <ActionButtons
-                  downloadUrl={downloadUrl}
-                  filename={filename}
-                  onShare={handleOpenShare}
-                />
+                <div className="flex flex-col gap-5">
+                  <ConfigGroup label="Exhibitor">
+                    <ConfigSelect
+                      value={selectedExhibitorId}
+                      onChange={(value) =>
+                        updateUrl({
+                          item: value,
+                        })
+                      }
+                      options={exhibitorOptions.map((item) => ({
+                        value: item.id,
+                        label: item.name,
+                      }))}
+                    />
+                  </ConfigGroup>
+
+                  <ConfigGroup label="Badge">
+                    <div className="flex flex-wrap gap-2">
+                      {availableStickers.map((item) => (
+                        <ConfigButton
+                          key={item.id}
+                          isActive={selectedStickerId === item.id}
+                          onClick={() =>
+                            updateUrl({
+                              sticker: item.id,
+                            })
+                          }
+                        >
+                          {item.label}
+                        </ConfigButton>
+                      ))}
+                    </div>
+                  </ConfigGroup>
+
+                  <ConfigGroup label="Format">
+                    <FormatSwitch
+                      activeFormat={selectedFormat}
+                      onChangeFormat={(format) =>
+                        updateUrl({
+                          format,
+                        })
+                      }
+                    />
+                  </ConfigGroup>
+                </div>
+              </div>
+
+              <div className="flex flex-col">
+                <div
+                  className={classNames(
+                    "flex flex-row justify-between gap-5 md:items-center",
+                    "border-t border-t-[1.5px] border-[#B9AEF3]",
+                    "p-10",
+                  )}
+                >
+                  <div>
+                    <p className="text-[13px] font-medium">
+                      Dein Sharebild ist fertig
+                    </p>
+                    <p className="text-[12px] text-[#7761EC]">
+                      Jetzt herunterladen oder direkt teilen.
+                    </p>
+                  </div>
+
+                  <ActionButtons
+                    downloadUrl={downloadUrl}
+                    filename={filename}
+                    onShare={handleOpenShare}
+                  />
+                </div>
               </div>
             </div>
           </div>
-        </div></div>
+        </div>
       </div>
 
       <ShareModal image={shareImage} onClose={handleCloseShare} />

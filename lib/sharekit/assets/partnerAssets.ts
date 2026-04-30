@@ -1,55 +1,33 @@
-import type { RoleAssetConfig, SharekitOption } from "./types";
+import type { RoleAssetConfig } from "../types";
 
-export const partnerOptions: SharekitOption[] = [
-  {
-    id: "1",
-    name: "Coffee",
-    imageUrl: "/assets/exhibitor/logo-2.png",
-    label: "coffee",
-    labelAssetSrc: {
-      landscape:
-        "/assets/partner/hub-disrupt-sharekit-partner-label-coffee-1920x1080.png",
-      portrait:
-        "/assets/partner/hub-disrupt-sharekit-partner-label-coffee-1080x1350.png",
-    },
+export const partnerLabelAssets = {
+  coffee: {
+    landscape:
+      "/assets/partner/hub-disrupt-sharekit-partner-label-coffee-1920x1080.png",
+    portrait:
+      "/assets/partner/hub-disrupt-sharekit-partner-label-coffee-1080x1350.png",
   },
-  {
-    id: "2",
-    name: "Lab",
-    imageUrl: "/assets/exhibitor/logo-2.png",
-    label: "lab",
-    labelAssetSrc: {
-      landscape:
-        "/assets/partner/hub-disrupt-sharekit-partner-label-lab-1920x1080.png",
-      portrait:
-        "/assets/partner/hub-disrupt-sharekit-partner-label-lab-1080x1350.png",
-    },
+  gold: {
+    landscape:
+      "/assets/partner/hub-disrupt-sharekit-partner-label-themenwelt-1920x1080.png",
+    portrait:
+      "/assets/partner/hub-disrupt-sharekit-partner-label-themenwelt-1080x1350.png",
   },
-  {
-    id: "3",
-    name: "Themenwelt",
-    imageUrl: "/assets/exhibitor/logo-2.png",
-    label: "themenwelt",
-    labelAssetSrc: {
-      landscape:
-        "/assets/partner/hub-disrupt-sharekit-partner-label-themenwelt-1920x1080.png",
-      portrait:
-        "/assets/partner/hub-disrupt-sharekit-partner-label-themenwelt-1080x1350.png",
-    },
+  silver: {
+    landscape:
+      "/assets/partner/hub-disrupt-sharekit-partner-label-lab-1920x1080.png",
+    portrait:
+      "/assets/partner/hub-disrupt-sharekit-partner-label-lab-1080x1350.png",
   },
-  {
-    id: "4",
-    name: "Workshop",
-    imageUrl: "/assets/exhibitor/logo-2.png",
-    label: "workshop",
-    labelAssetSrc: {
-      landscape:
-        "/assets/partner/hub-disrupt-sharekit-partner-label-workshop-1920x1080.png",
-      portrait:
-        "/assets/partner/hub-disrupt-sharekit-partner-label-workshop-1080x1350.png",
-    },
+  bronze: {
+    landscape:
+      "/assets/partner/hub-disrupt-sharekit-partner-label-workshop-1920x1080.png",
+    portrait:
+      "/assets/partner/hub-disrupt-sharekit-partner-label-workshop-1080x1350.png",
   },
-];
+} as const;
+
+export type PartnerSponsorType = keyof typeof partnerLabelAssets;
 
 export const partnerAssets: RoleAssetConfig = {
   role: "partner",

@@ -10,7 +10,7 @@ import {
   buildFilename,
   createExhibitorCanvasDownloadUrl,
 } from "@/lib/sharekit/download";
-import { exhibitorAssets } from "@/lib/assets/exhibitorAssets";
+import { exhibitorAssets } from "@/lib/sharekit/assets/exhibitorAssets";
 import type { ImageFormat, SharekitOption } from "@/lib/sharekit/types";
 import { classNames } from "@/lib/classNames";
 import { FormatSwitch } from "../FormatSwitch";

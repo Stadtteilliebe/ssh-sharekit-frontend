@@ -1,4 +1,4 @@
-import type { RoleAssetConfig } from "../sharekit/types";
+import type { RoleAssetConfig } from "../types";
 
 export const exhibitorAssets: RoleAssetConfig = {
   role: "exhibitor",

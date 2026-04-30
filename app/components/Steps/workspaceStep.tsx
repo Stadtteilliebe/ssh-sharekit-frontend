@@ -12,6 +12,7 @@ type Role = "speaker" | "partner" | "exhibitor";
 type WorkspaceStepProps = {
   role: Role;
   exhibitorOptions: SharekitOption[];
+  partnerOptions: SharekitOption[];
   onRoleChangeAction: (role: Role) => void;
   onBackAction: () => void;
 };
@@ -25,6 +26,7 @@ const titleByRole: Record<Role, string> = {
 export function WorkspaceStep({
   role,
   exhibitorOptions,
+  partnerOptions,
   onBackAction,
 }: WorkspaceStepProps) {
   useEffect(() => {
@@ -47,7 +49,9 @@ export function WorkspaceStep({
       />
 
       {role === "speaker" && <SpeakerCustomizeStep />}
-      {role === "partner" && <PartnerCustomizeStep />}
+      {role === "partner" && (
+        <PartnerCustomizeStep partnerOptions={partnerOptions} />
+      )}
       {role === "exhibitor" && (
         <ExhibitorCustomizeStep exhibitorOptions={exhibitorOptions} />
       )}

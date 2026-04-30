@@ -15,10 +15,16 @@ import {
   buildFilename,
   createLabelCanvasDownloadUrl,
 } from "@/lib/sharekit/download";
-import { partnerAssets, partnerOptions } from "@/lib/sharekit/partnerAssets";
-import type { ImageFormat } from "@/lib/sharekit/types";
+import { partnerAssets } from "@/lib/sharekit/assets/partnerAssets";
+import type { ImageFormat, SharekitOption } from "@/lib/sharekit/types";
 
-export function PartnerCustomizeStep() {
+type PartnerCustomizeStepProps = {
+  partnerOptions: SharekitOption[];
+};
+
+export function PartnerCustomizeStep({
+  partnerOptions,
+}: PartnerCustomizeStepProps) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
   const router = useRouter();
@@ -41,6 +47,7 @@ export function PartnerCustomizeStep() {
     partnerOptions[0];
 
   const formatConfig = partnerAssets.formats[selectedFormat];
+
   const availableStickers = useMemo(
     () => formatConfig.stickers,
     [formatConfig],
@@ -73,14 +80,14 @@ export function PartnerCustomizeStep() {
   }
 
   function handleOpenShare() {
-    if (!downloadUrl) return;
+    if (!downloadUrl || !selectedPartner) return;
 
     setShareImage({
-      id: `${selectedPartner?.id}-${selectedFormat}-${selectedSticker?.id ?? "none"}`,
-      title: selectedPartner?.name ?? "Partner Asset",
+      id: `${selectedPartner.id}-${selectedFormat}-${selectedSticker?.id ?? "none"}`,
+      title: selectedPartner.name ?? "Partner Asset",
       previewSrc: downloadUrl,
       downloadSrc: downloadUrl,
-      alt: selectedPartner?.name ?? "Partner Asset",
+      alt: selectedPartner.name ?? "Partner Asset",
       format: selectedFormat,
       width: formatConfig.width,
       height: formatConfig.height,
@@ -103,14 +110,16 @@ export function PartnerCustomizeStep() {
   }, [availableStickers, selectedStickerId]);
 
   useEffect(() => {
+    if (!selectedPartner) return;
+
     const draw = async () => {
       try {
         await renderLabelCanvas({
           canvas: canvasRef.current,
           assetConfig: partnerAssets,
           format: selectedFormat,
-          logoSrc: selectedPartner?.imageUrl,
-          labelAssetSrc: selectedPartner?.labelAssetSrc?.[selectedFormat] ?? "",
+          logoSrc: selectedPartner.imageUrl,
+          labelAssetSrc: selectedPartner.labelAssetSrc?.[selectedFormat] ?? "",
           stickerSrc: selectedSticker?.src ?? null,
         });
       } catch (error) {
@@ -122,13 +131,15 @@ export function PartnerCustomizeStep() {
   }, [selectedFormat, selectedPartner, selectedSticker]);
 
   useEffect(() => {
+    if (!selectedPartner) return;
+
     const build = async () => {
       try {
         const url = await createLabelCanvasDownloadUrl({
           assetConfig: partnerAssets,
           format: selectedFormat,
-          logoSrc: selectedPartner?.imageUrl,
-          labelAssetSrc: selectedPartner?.labelAssetSrc?.[selectedFormat] ?? "",
+          logoSrc: selectedPartner.imageUrl,
+          labelAssetSrc: selectedPartner.labelAssetSrc?.[selectedFormat] ?? "",
           stickerSrc: selectedSticker?.src ?? null,
         });
 
@@ -141,12 +152,21 @@ export function PartnerCustomizeStep() {
     void build();
   }, [selectedFormat, selectedPartner, selectedSticker]);
 
+  if (!selectedPartner) {
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-[#282828] text-white">
+        Keine Partner-Daten gefunden.
+      </div>
+    );
+  }
+
   return (
     <>
       <div
         className="grid grid-cols-12 bg-[#282828] bg-cover bg-center bg-no-repeat"
         style={{
-          backgroundImage: "url('/assets/hubdisrupt-hexblur-background_720.jpg')",
+          backgroundImage:
+            "url('/assets/hubdisrupt-hexblur-background_720.jpg')",
         }}
       >
         <div
@@ -158,15 +178,11 @@ export function PartnerCustomizeStep() {
           <div
             className={classNames(
               "flex items-center justify-center",
-              "pl-0 md:pl-10 w-full aspect-[16/9] lg:h-[calc(100vh-60px)] lg:aspect-auto",
+              "pl-0 md:pl-10",
+              "w-full aspect-[16/9] lg:h-[calc(100vh-60px)] lg:aspect-auto",
             )}
           >
-            <div
-              className={classNames(
-                "flex items-center justify-center",
-                "max-h-full max-w-full overflow-hidden",
-              )}
-            >
+            <div className="flex max-h-full max-w-full items-center justify-center overflow-hidden">
               <canvas
                 ref={canvasRef}
                 width={formatConfig.width}
@@ -175,7 +191,7 @@ export function PartnerCustomizeStep() {
                   "block max-w-full",
                   selectedFormat === "landscape"
                     ? "h-auto w-full"
-                    : "h-auto max-h-[calc(100vw/16*9)] lg:max-h-[calc(100vh-60px)] w-auto",
+                    : "h-auto max-h-[calc(100vw/16*9)] w-auto lg:max-h-[calc(100vh-60px)]",
                 )}
               />
             </div>
@@ -189,12 +205,7 @@ export function PartnerCustomizeStep() {
             "lg:pt-15",
           )}
         >
-          <div
-            className={classNames(
-              "flex flex-col",
-              "lg:px-5 lg:py-10 xl:px-10 xl:py-20",
-            )}
-          >
+          <div className="flex flex-col lg:px-5 lg:py-10 xl:px-10 xl:py-20">
             <div
               className={classNames(
                 "flex flex-col justify-between overflow-hidden bg-white",
@@ -204,8 +215,8 @@ export function PartnerCustomizeStep() {
               <div
                 className={classNames(
                   "flex flex-col",
-                  "gap-5 lg:gap-5 xl:gap-10",
                   "p-5 lg:p-5 xl:p-10",
+                  "gap-5 lg:gap-5 xl:gap-10",
                 )}
               >
                 <h2>Dein Sharekit als Partner</h2>

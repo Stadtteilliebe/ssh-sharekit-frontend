@@ -13,9 +13,13 @@ type Role = "speaker" | "partner" | "exhibitor";
 
 type SharekitFlowProps = {
   exhibitorOptions: SharekitOption[];
+  partnerOptions: SharekitOption[];
 };
 
-export function SharekitFlow({ exhibitorOptions }: SharekitFlowProps) {
+export function SharekitFlow({
+  exhibitorOptions,
+  partnerOptions,
+}: SharekitFlowProps) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -68,6 +72,7 @@ export function SharekitFlow({ exhibitorOptions }: SharekitFlowProps) {
           <WorkspaceStep
             role={role}
             exhibitorOptions={exhibitorOptions}
+            partnerOptions={partnerOptions}
             onRoleChangeAction={(nextRole) => {
               updateUrl({
                 role: nextRole,

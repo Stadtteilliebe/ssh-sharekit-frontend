@@ -2,6 +2,8 @@
 
 import { useEffect, useRef, useState } from "react";
 import { classNames } from "@/lib/classNames";
+import { IconButton } from "../IconButton";
+import { XIcon } from "@/public/icons/xIcon";
 
 export type ShareImage = {
   id: string;
@@ -153,24 +155,17 @@ export function ShareModal({ image, onClose }: ShareModalProps) {
             onTouchEnd={handleTouchEnd}
           />
 
-          <div className="flex items-start justify-between gap-4">
+          <div className="flex flex-row items-center justify-between gap-4">
             <div>
-              <p
-                id="share-dialog-title"
-                className="text-lg font-semibold text-neutral-900"
-              >
+              <h3>
                 Bild teilen
-              </p>
+              </h3>
             </div>
 
-            <button
-              type="button"
-              onClick={onClose}
-              className="rounded-xl p-2 text-neutral-500 transition hover:bg-neutral-100 hover:text-neutral-900"
-              aria-label="Schließen"
-            >
-              ✕
-            </button>
+
+<IconButton onClick={onClose} label="Schließen">
+  <XIcon />
+</IconButton>
           </div>
 
           <div className="mt-5 overflow-hidden bg-neutral-50">
@@ -208,14 +203,10 @@ export function ShareModal({ image, onClose }: ShareModalProps) {
               onClick={handleCopyLink}
               className="rounded-xl border border-neutral-300 bg-white px-4 py-3 text-sm font-medium text-neutral-900 transition hover:border-neutral-500"
             >
-              Link kopieren
-            </button>
-          </div>
-
-          <div className="mt-3 min-h-5 text-sm text-neutral-500">
-            {copied
+              {copied
               ? "Link kopiert."
-              : "Der Link öffnet eine eigene Share-Seite mit OG-Vorschau."}
+              : "Link kopieren"}
+            </button>
           </div>
         </div>
       </div>

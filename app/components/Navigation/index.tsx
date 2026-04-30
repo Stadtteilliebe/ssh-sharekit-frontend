@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { classNames } from "@/lib/classNames";
 import { IconButton } from "../IconButton";
+import { ArrowLeftIcon } from "@/public/icons/arrowLeftIcon";
 
 type NavProps = {
   title: string;
@@ -50,7 +51,9 @@ export function Nav({
 
       <div className="relative h-full">
         <div className="absolute flex h-full left-5 top-0 md:left-5 lg:left-10 items-center">
-          <IconButton onClick={onBackAction} />
+<IconButton onClick={onBackAction} label="Zurück">
+  <ArrowLeftIcon size={24} />
+</IconButton>
         </div>
 
         <div

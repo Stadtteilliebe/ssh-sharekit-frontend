@@ -52,8 +52,6 @@ export async function getExhibitorOptions(): Promise<SharekitOption[]> {
 
   const data = await res.json();
 
-  console.log("Storyblok stories:", data.stories);
-
   return data.stories.map((story: StoryblokCompanyStory) => ({
     id: story.uuid,
     name: story.content.name ?? story.name ?? story.slug,
